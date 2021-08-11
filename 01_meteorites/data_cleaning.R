@@ -1,9 +1,13 @@
 library(tidyverse)
 library(janitor)
+library(assertr)
 
 # 3.1 Writing function/program to process data from an external file
 
 meteorites <- read_csv("data/meteorite_landings.csv")
+
+stopifnot(names(meteorites) == c("id", "name", "mass (g)", 
+                                   "fall", "year", "GeoLocation"))
 
 meteorites <- meteorites %>% 
   clean_names() %>% 
@@ -17,8 +21,23 @@ meteorites <- meteorites %>%
   filter(mass_g >= 1000) %>% 
   arrange(year)
 
-write_csv(meteorites, "data/meteorites.csv")
 
+report_meteorites <- function(meteorites){
+  
+  meteorites %>% 
+    verify(latitude >= - 90 & latitude <= 90) %>% 
+    verify(longitude >= -180 & longitude <= 180)
+  
+  report <- meteorites %>% 
+    summarise(max_latitude = max(latitude),
+              min_latitude = min(latitude),
+              max_longitude = max(longitude),
+              min_longitude = min(longitude))
+  return(report)
+}
+report_meteorites(meteorites)
+
+write_csv(meteorites, "data/meteorites.csv")
 
 
 
