@@ -1,0 +1,94 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+1. Read the cleaned data into R.
+```{r}
+meteorites <- read_csv("data/meteorites.csv")
+```
+
+2. Find the names and years found for the 10 largest meteorites in the data.
+```{r}
+meteorites %>% 
+  arrange(desc(mass_g)) %>% 
+  select(name, year) %>% 
+  drop_na() %>% 
+  head(10)
+```
+3. Find the average mass of meteorites that were recorded falling, vs. those which were just found.
+```{r}
+meteorites %>% 
+  group_by(fall) %>% 
+  summarise(avg = mean(mass_g))
+```
+4. Find the number of meteorites in each year, for every year since 2000.
+```{r}
+meteorites %>% 
+  filter(year >= 2000) %>% 
+  group_by(year) %>% 
+  summarise(count = n())
+```
+5.Write a function called get_meteorite_count() that takes in two arguments: a dataframe and a year, and returns the phrase “In (input_year), there were (number of meteorites that year) meteorites.” IF there are 1 or more meteorites that year. If there are no meteorites in the year, return the phrase “As far as we know, there were no meteorites that year”.
+
+```{r}
+get_meteorite_count <- function(dataframe, year){
+  count = 0
+  if(year %in% dataframe$year){
+    for(i in dataframe$year){
+      if(!is.na(i) == year){
+        count = count + 1
+      }
+    }
+    print(paste0("In ", year, " , there were ", count, " meteorites.")) # cat
+    return(TRUE)
+  }
+  else{
+    print("As far as we know, there were no meteorites that year")
+    return(FALSE)
+  }
+}
+
+get_meteorite_count(meteorites, 2005)
+```
+
+The function can have additional functionality by searching maximun and minimum year in the file and if a year was entered out of a scope, we can we informed about the scope in else statement.
+
+7.Write a unit test for your function to check whether non-numeric inputs (character and logical) for the year argument return an error.
+```{r}
+library(testthat)
+
+test_that("Non-numeric input returns an error", { # doesn't throw an error
+  expect_error(get_meteorite_count(meteorites, "year"))
+  expect_error(get_meteorite_count(meteorites, TRUE))
+})
+```
+
+```{r}
+test_that("Meteorite count function includes", {
+  expect_equal(get_meteorite_count(meteorites, 2020), FALSE)
+  expect_equal(get_meteorite_count(meteorites, 2005), TRUE)
+})
+```
+
+8.Improve your function based on the result of your test. Instead of going back and changing the function, please create a new function that is the improved version called refactor_get_meteorite_count(). Test your function to make sure it now gives an error when you input a logical or character value as the year. Hint: You can use the stop function to create your own error message.
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
