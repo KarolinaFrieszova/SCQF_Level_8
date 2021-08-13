@@ -9,7 +9,7 @@ library(tidyverse)
 
 1. Read the cleaned data into R.
 ```{r}
-meteorites <- read_csv("data/meteorites.csv")
+meteorites <- read_csv("data/meteorites_landings_clean.csv")
 ```
 
 2. Find the names and years found for the 10 largest meteorites in the data.
@@ -77,7 +77,32 @@ test_that("Meteorite count function includes", {
 
 8.Improve your function based on the result of your test. Instead of going back and changing the function, please create a new function that is the improved version called refactor_get_meteorite_count(). Test your function to make sure it now gives an error when you input a logical or character value as the year. Hint: You can use the stop function to create your own error message.
 ```{r}
+refactor_get_meteorite_count <- function(dataframe, year){
+  
+  if (!is.numeric(year)){
+    stop("Non-numeric input.")
+  }
+  
+  count = 0
+  if(year %in% dataframe$year){
+    for(i in dataframe$year){
+      if(!is.na(i) == year){
+        count = count + 1
+      }
+    }
+    print(paste0("In ", year, " , there were ", count, " meteorites.")) 
+    return(TRUE)
+  }
+  else{
+    print("As far as we know, there were no meteorites that year")
+    return(FALSE)
+  }
+}
 
+test_that("Non-numeric input returns an error", {
+  expect_error(refactor_get_meteorite_count(meteorites, "year"))
+  expect_error(refactor_get_meteorite_count(meteorites, TRUE))
+})
 ```
 
 

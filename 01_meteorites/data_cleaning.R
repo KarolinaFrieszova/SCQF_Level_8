@@ -37,7 +37,7 @@ report_meteorites <- function(meteorites){
 }
 report_meteorites(meteorites)
 
-write_csv(meteorites, "data/meteorites.csv")
+write_csv(meteorites, "data/meteorites_landings_clean.csv")
 
 
 
