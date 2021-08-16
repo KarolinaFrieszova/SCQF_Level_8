@@ -1,0 +1,41 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(RPostgres)
+library(Rcpp)
+source("~/meteors_credentials.R") # source credentials file
+```
+
+
+```{r}
+# create connection object
+db_connection = dbConnect(
+  drv = Postgres(), 
+  user = username,
+  password = password,
+  dbname = "meteorites_pool",
+  host = "db-postgresql-lon1-20135-do-user-7581050-0.b.db.ondigitalocean.com",
+  port = 25061,
+  bigint = "numeric"
+)
+
+rm(username, password) # remove these from global environment
+
+meteorite_db <- dbGetQuery(conn = db_connection, statement = "SELECT * FROM meteorite_class") # create table from the connection object
+```
+
+
+```{r}
+meteorites <- read_csv("data/meteorites_landings_clean.csv") # load in cleaned meteorites file
+
+meteorites <- left_join(meteorites, meteorite_db, by = "id") # join tables
+```
+
+
+```{r}
+dbDisconnect(conn = db_connection) # close connection
+```
+
