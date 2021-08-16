@@ -26,7 +26,8 @@ meteorites %>%
   group_by(fall) %>% 
   summarise(avg = mean(mass_g))
 ```
-4. Find the number of meteorites in each year, for every year since 2000.
+
+4. Looking for the number of meteorites in each year, for every year since 2000.
 ```{r}
 meteorites %>% 
   filter(year >= 2000) %>% 
@@ -35,59 +36,78 @@ meteorites %>%
 ```
 5.Write a function called get_meteorite_count() that takes in two arguments: a dataframe and a year, and returns the phrase “In (input_year), there were (number of meteorites that year) meteorites.” IF there are 1 or more meteorites that year. If there are no meteorites in the year, return the phrase “As far as we know, there were no meteorites that year”.
 
+3.5 Writing function/program to perform statistical analysis
+
 ```{r}
-get_meteorite_count <- function(dataframe, year){
-  count = 0
-  if(year %in% dataframe$year){
-    for(i in dataframe$year){
-      if(!is.na(i) == year){
-        count = count + 1
+get_meteorite_count <- function(dataframe, year){ # functions takes two arguments
+  count = 0 # create a variable 
+  if(year %in% dataframe$year){ # checks if input year is in a dataset
+    for(i in dataframe$year){ # loops through the rows in a year column
+      if(!is.na(i)){ # excludes missing values
+        if (i == year){ # if loop value equal to the selected
+          count = count + 1 # add 1 to the variable count
+        }
       }
     }
-    print(paste0("In ", year, " , there were ", count, " meteorites.")) # cat
-    return(TRUE)
+    print(paste0("In ", year, " , there were ", count, " meteorites.")) # prints selected year and the count
+    return(TRUE) # returns True
   }
   else{
-    print("As far as we know, there were no meteorites that year")
-    return(FALSE)
+    print("As far as we know, there were no meteorites that year") # prints a message
+    return(FALSE) # returns False
   }
 }
 
-get_meteorite_count(meteorites, 2005)
+get_meteorite_count(meteorites, 1804) # run the function
 ```
+6. Plans on how the function could be improved, how could I test that the function works.
 
-The function can have additional functionality by searching maximun and minimum year in the file and if a year was entered out of a scope, we can we informed about the scope in else statement.
+
+4.1 Test plans
+
+TEST PLANS
+
+--- Function Improvements ---
+
+1. The function can have additional functionality by searching maximun and minimum year in the file and if a year was entered out of a scope, we can we informed about the scope in else statement.
+
+2. The function could be improved by giving an error if a logical or character value was entered. 
+
+--- Test Plans ---
+
+We can use 'testthat' package to perform a unit testing. From where we can use two useful functions 'expect_equal' to check that the objects give us an answer/value we would expect, and 'expect_error' to check that code throws an error.
+
+
 
 7.Write a unit test for your function to check whether non-numeric inputs (character and logical) for the year argument return an error.
+
+4.6 Performing test and revising code
+
 ```{r}
 library(testthat)
 
-test_that("Non-numeric input returns an error", { # doesn't throw an error
+test_that("Non-numeric input returns an error", { # failure as it doesn't throw an error - and we expect one
   expect_error(get_meteorite_count(meteorites, "year"))
   expect_error(get_meteorite_count(meteorites, TRUE))
 })
-```
-
-```{r}
 test_that("Meteorite count function includes", {
   expect_equal(get_meteorite_count(meteorites, 2020), FALSE)
   expect_equal(get_meteorite_count(meteorites, 2005), TRUE)
 })
 ```
-
-8.Improve your function based on the result of your test. Instead of going back and changing the function, please create a new function that is the improved version called refactor_get_meteorite_count(). Test your function to make sure it now gives an error when you input a logical or character value as the year. Hint: You can use the stop function to create your own error message.
+Improving the function based on the result from the unit test. Testing the function to make sure it now gives an error when we input a logical or character value as the year.
 ```{r}
 refactor_get_meteorite_count <- function(dataframe, year){
-  
   if (!is.numeric(year)){
     stop("Non-numeric input.")
   }
-  
   count = 0
   if(year %in% dataframe$year){
     for(i in dataframe$year){
-      if(!is.na(i) == year){
-        count = count + 1
+      if(!is.na(i)){
+        if(i == year){
+          count = count + 1
+        }
       }
     }
     print(paste0("In ", year, " , there were ", count, " meteorites.")) 
@@ -98,7 +118,6 @@ refactor_get_meteorite_count <- function(dataframe, year){
     return(FALSE)
   }
 }
-
 test_that("Non-numeric input returns an error", {
   expect_error(refactor_get_meteorite_count(meteorites, "year"))
   expect_error(refactor_get_meteorite_count(meteorites, TRUE))

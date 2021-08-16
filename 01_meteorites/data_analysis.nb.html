@@ -230,6 +230,19 @@ pre code {
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWV0ZW9yaXRlcyA8LSByZWFkX2NzdihcImRhdGEvbWV0ZW9yaXRlc19sYW5kaW5nc19jbGVhbi5jc3ZcIilcbmBgYCJ9 -->
 <pre class="r"><code>meteorites &lt;- read_csv(&quot;data/meteorites_landings_clean.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4tLSBDb2x1bW4gc3BlY2lmaWNhdGlvbiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuY29scyhcbiAgaWQgPSBjb2xfZG91YmxlKCksXG4gIG5hbWUgPSBjb2xfY2hhcmFjdGVyKCksXG4gIG1hc3NfZyA9IGNvbF9kb3VibGUoKSxcbiAgZmFsbCA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgeWVhciA9IGNvbF9kb3VibGUoKSxcbiAgbGF0aXR1ZGUgPSBjb2xfZG91YmxlKCksXG4gIGxvbmdpdHVkZSA9IGNvbF9kb3VibGUoKVxuKVxuIn0= -->
+<pre><code>
+-- Column specification --------------------------------------------------------------------------------------------------------------------------------------------
+cols(
+  id = col_double(),
+  name = col_character(),
+  mass_g = col_double(),
+  fall = col_character(),
+  year = col_double(),
+  latitude = col_double(),
+  longitude = col_double()
+)</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <ol start="2" style="list-style-type: decimal">
@@ -244,7 +257,7 @@ pre code {
   drop_na() %&gt;% 
   head(10)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MTAsIm5jb2wiOjIsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMTAgeCAyIl19fSwicmRmIjoiSDRzSUFBQUFBQUFBQmwxUnNVN0RNQkIxMDRhcWdSWWtWb2FPTEkxRUVjd3RxUVJMSlFSTEdlM0VFS3V1SFRtT29Cc2Z3Q2RBWjBZK2lJOWdZbXl3a3pPQ1dITHUzVHUvdTl6ZHpXeHhHaXdDaEZBYmRaQ1AycjZCYUNlNlBobWZqUkhxZU1acm1ValAyaWZ6NnRBQVN4NllHMENnY3lVSkJ0eUxjRWFIZDFJdGdlaEhXS3lsR000WUpsd0MyWjJxRlJaNkRlN09KU05VQ3ZDQ0tDMHluRkFsYzJCMjU0VklGQ2FNYzFkbjc1WXRVNm5wYU1yWnIvQUN4d1ZoaW1sWHg1OFRtVE1EQmpZODJhRHFURjdUMnI2OWdIMEgvZ1BzRi9DZnRkMXc4SS9BUDY0VC9aK1BML0NLNWpBYno4M0drZzZ2S1ZZTlVVL0p4OUFKKzFiNGJENWxXWDQzczhjYzV5NjdJNE1FYXh6ZUsxc0RvVzFEMHBXWlpsSVlrV2ZYNWpmRUxkVWc5Z3RoL3lRWnhXa2hscVB6YXNVMlhKOCs0T0FQOXVxU1hnbXBmTGRSS2g2WWNJMzdIQlBLd1JtWWpxdUd3MHd4b1YwbmhzMURMVFYyNzRKWWNzZFV2YUh0RDJmNUxndXVBZ0FBIn0= -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MTAsIm5jb2wiOjIsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMTAgeCAyIl19fSwicmRmIjoiSDRzSUFBQUFBQUFBQmwxUnNVN0RNQkIxMDZaVkFxMHFzVEowWkdra1dqR3d0YVFTTEpVUUxHVjBFa09zdW5ia09JSnVmQUNmQUowWitTQStnb214d1U3T0NHTEp1WGZ2L081eWR6ZUwxZFJmK1FpaE51b2dGN1ZkRFZFM3ZENmRuRTBRNmpqYWErbUlaK3lUZm5Xa2dTR0grdm9RNkZ5SkNBUDJRcHlSMFoyUWF5RDZJZVpid1VjTGlpTW1nT3pONVFaenRRVzNlMGtqSWpoNGZwZ1dHVTZJRkRrd0I4dUNKeEpIbERGYjUvQ1dybE9oeUhqTzZLL3dBc2RGUkNWVnRvNjdqRVJPTlJpWThHeUhxak43VFd2NzlnTDJIZmdQc0YvQWY5WjJ4OEEvQnYra1R2Ui9QaTdIRzVMRGJCdzdHME5hdkNWWU5rU2VGSStCRmZhTjhGbC95ckw4Ym1hUEdjNXRka3Y2Q1ZZNHVKZW1Ca0w3aHFRbk1rVUYxeUxIck0xdGlGdXlRUXdMYnY0a0djZHB3ZGZqNlhtMVl4T3ZUeCt3L3djN2RVMm5oRnl1WFNuaEQ1VGJ6bDJHSThMQUdlaVdxNDZEVEZLdWJDdWF6UU1sRkxidi9GZ3d5MVROb2YwUEk0bGZrNjhDQUFBPSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hoba","2":"1920"},{"1":"Cape York","2":"1818"},{"1":"Canyon Diablo","2":"1891"},{"1":"Armanty","2":"1898"},{"1":"Gibeon","2":"1836"},{"1":"Chupaderos","2":"1852"},{"1":"Mundrabilla","2":"1911"},{"1":"Sikhote-Alin","2":"1947"},{"1":"Bacubirito","2":"1863"},{"1":"Mbosi","2":"1930"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[10]},"pages":{}}}
@@ -263,7 +276,7 @@ pre code {
   group_by(fall) %&gt;% 
   summarise(avg = mean(mass_g))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJndHlpVERtaXVCaVlHQmdabUJoWUdWZ1pnVXlHZGljQXd5TlRJMFlHRmlZZ0R4R29Bd25pSzRBcWhJR01rQ0NBbUFhSXNIaWxwcVRBMld6dXVXWDVxVUFHWHdnQlE0ZjVuREZucnh4d0pIQjNWOVo2dlI3TkJOWjh4SnpVNHZSVFV0TGhKdkduRmlXanFhSHN5aS9YQSttanhla3J3RkkvUC8vL3grNjRjazVpY1V3dzJHQ1hDbUpKWWw2YVVWQS9VQWV1aGIyL0lLU3pQdzhvQ1lta0Q5WjBUUXpGcUVKOEpmbWdWeVNvcHVjVVpxWHJXc09zZ0FzRFFHOFVEWVRLaHRrSmROL3FGR3NVS1BZVXZQU00vTlNZVzdQU1V4S2hRVUNIOURIWUEvckZSUmw1cFhBZkFJVUxkWXJ5UzlKaEtualNzN1BnWW1BL2Nid0R3QVlhN3VFM3dFQUFBPT0ifQ== -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJndHlpVERtaXVCaVlHQmdabUJoWUdWZ1pnVXlHZGljQXd5TlRJMFlHRmlZZ0R4R29Bd25pSzRBcWhJR01rQ0NBbUFhSXNIaWxwcVRBMld6dXVXWDVxVUFHWHdnQlE0ZjVuREZucnh4d0pIQjNWOVo2dlI3TkJOWjh4SnpVNHZSVFV0TGhKdkduRmlXanFhSHN5aS9YQSttanhla3J3RkkvUC8vL3grNjRjazVpY1V3dzJHQ1hDbUpKWWw2YVVWQS9VQWV1aGIyL0lLU3pQdzhvQ1lta0Q5WjBUUXpGcUVKQ0pUbWdWeVNvcHVjVVpxWHJXdGlBTElCTEE4QnZGQTJFeW9iWkNmVGY2aFpyRkN6MkZMejBqUHpVbUdPejBsTVNvV0ZBaC9ReTJBZjZ4VVVaZWFWd0x3Q0ZDM1dLOGt2U1lTcDQwck96NEdKZ0QzSDhBOEFVcndTeCtBQkFBQT0ifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["fall"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avg"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Fell","2":"68032.65"},{"1":"Found","2":"133353.89"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
@@ -273,7 +286,7 @@ pre code {
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <ol start="4" style="list-style-type: decimal">
-<li>Find the number of meteorites in each year, for every year since 2000.</li>
+<li>Looking for the number of meteorites in each year, for every year since 2000.</li>
 </ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -283,7 +296,7 @@ pre code {
   group_by(year) %&gt;% 
   summarise(count = n())</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MTQsIm5jb2wiOjIsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMTQgeCAyIl19fSwicmRmIjoiSDRzSUFBQUFBQUFBQmwyUXdVckRRQkNHSjJsU2FjQXErQndOV0NsNERGalFnNGNpSGlKNGNFMWpHNHk3SWRtZ3Zma0NYbnlCSG4wSFg2RW5uOE9iRDlENGJ6cUxtTUNmYjNaMlpuWm1ycWJ4U1JBSFJOUWpqM3pxK1RDcGZ6WTdIay9HUko2TGs0T2JnZUVMb281Z0dPZlFLRnBISnB5aTlaUjV3YnhrenBqWHpKaDV5N3hqenBsTFpzNHNtSnI0MitlM3Y2RlBhQU45UVcvUU8vUUJuVU9tOEFLNmdWYlFaTmYzdjRGOEtaN1NDc1poZTdsemVxdFVsRFlnVWJYVW5heEJxWjVEbTJuYWNWL3hhNXJtcDFzK3lVVmx5MXRuTUJkYWhBOGw4bkhhZGxMMlZLRXpKWkhrbWtYN25XU243RGdPYW1rNm1ZK1NaUzBmUjZmbWdmYjZiMWtPTDh6YXZBUzM0VkkrbCtxbmNwSEoxUGFlaS9zMDU4TVFFN2NEaDBXWllSODhDYnhWcUpVV05pNUlWRzQ5N1d5MC9RWEpiQUVLWUFJQUFBPT0ifQ== -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MTQsIm5jb2wiOjIsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMTQgeCAyIl19fSwicmRmIjoiSDRzSUFBQUFBQUFBQmwyUXdVckRRQkNHSjJsU2FjQlM4RGthYUxYM2dBVTllQ2ppb1lJSDF5UzJ3Ymdia2czYW15L2d4UmZvMFhmd0ZUejVITjU4Z01aLzAxbkVCUDU4czdNenN6TnpPVjhlQjh1QWlIcmtrVTg5SHliMVR4ZVQ2V3hLNUxrNE9iZ1pHRDRqNmdpR2NRNk5vbTFrd2luYXpwbm56QXZtZ25uRlhESnZtTGZNaExsbTVzeUNxWW0vUTM3N0cvcUFQcUV2NkJWNmc5NmhNOGdVWGtIWDBBYWE3ZnYrTjVBdnhXTmF3UmkxbDN1bnQwbEZhUU5pVlV2ZHlScVU2aW0wbWFZZDl3Vy9wbWwrdXVYalhGUzJ2SFVHaWRBaXZDK1JqOU91azNLZ0NwMHBpU1RYTE5ydkpEdGx4ekdxcGVra0djZnJXajZNVHlibWhmYitiMXNPYjh6YXZBVzM0Vm8rMStxbmNwWEoxRGFmaTdzMDU4TVFJN2NUaDBXWllTRThDcnhWcUpVV05pNklWVzQ5N1hDMCt3V01GR05NWVFJQUFBPT0ifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["count"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"2000","2":"235"},{"1":"2001","2":"186"},{"1":"2002","2":"203"},{"1":"2003","2":"209"},{"1":"2004","2":"141"},{"1":"2005","2":"146"},{"1":"2006","2":"167"},{"1":"2007","2":"71"},{"1":"2008","2":"96"},{"1":"2009","2":"103"},{"1":"2010","2":"89"},{"1":"2011","2":"121"},{"1":"2012","2":"53"},{"1":"2013","2":"2"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[14]},"pages":{}}}
@@ -293,73 +306,98 @@ pre code {
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>5.Write a function called get_meteorite_count() that takes in two arguments: a dataframe and a year, and returns the phrase “In (input_year), there were (number of meteorites that year) meteorites.” IF there are 1 or more meteorites that year. If there are no meteorites in the year, return the phrase “As far as we know, there were no meteorites that year”.</p>
+<p>3.5 Writing function/program to perform statistical analysis</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2V0X21ldGVvcml0ZV9jb3VudCA8LSBmdW5jdGlvbihkYXRhZnJhbWUsIHllYXIpe1xuICBjb3VudCA9IDBcbiAgaWYoeWVhciAlaW4lIGRhdGFmcmFtZSR5ZWFyKXtcbiAgICBmb3IoaSBpbiBkYXRhZnJhbWUkeWVhcil7XG4gICAgICBpZighaXMubmEoaSkgPT0geWVhcil7XG4gICAgICAgIGNvdW50ID0gY291bnQgKyAxXG4gICAgICB9XG4gICAgfVxuICAgIHByaW50KHBhc3RlMChcIkluIFwiLCB5ZWFyLCBcIiAsIHRoZXJlIHdlcmUgXCIsIGNvdW50LCBcIiBtZXRlb3JpdGVzLlwiKSlcbiAgICByZXR1cm4oVFJVRSlcbiAgfVxuICBlbHNle1xuICAgIHByaW50KFwiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXJcIilcbiAgICByZXR1cm4oRkFMU0UpXG4gIH1cbn1cblxuZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCAyMDA1KVxuYGBgIn0= -->
-<pre class="r"><code>get_meteorite_count &lt;- function(dataframe, year){
-  count = 0
-  if(year %in% dataframe$year){
-    for(i in dataframe$year){
-      if(!is.na(i) == year){
-        count = count + 1
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2V0X21ldGVvcml0ZV9jb3VudCA8LSBmdW5jdGlvbihkYXRhZnJhbWUsIHllYXIpeyAjIGZ1bmN0aW9ucyB0YWtlcyB0d28gYXJndW1lbnRzXG4gIGNvdW50ID0gMCAjIGNyZWF0ZSBhIHZhcmlhYmxlIFxuICBpZih5ZWFyICVpbiUgZGF0YWZyYW1lJHllYXIpeyAjIGNoZWNrcyBpZiBpbnB1dCB5ZWFyIGlzIGluIGEgZGF0YXNldFxuICAgIGZvcihpIGluIGRhdGFmcmFtZSR5ZWFyKXsgIyBsb29wcyB0aHJvdWdoIHRoZSByb3dzIGluIGEgeWVhciBjb2x1bW5cbiAgICAgIGlmKCFpcy5uYShpKSl7ICMgZXhjbHVkZXMgbWlzc2luZyB2YWx1ZXNcbiAgICAgICAgaWYgKGkgPT0geWVhcil7ICMgaWYgbG9vcCB2YWx1ZSBlcXVhbCB0byB0aGUgc2VsZWN0ZWRcbiAgICAgICAgICBjb3VudCA9IGNvdW50ICsgMSAjIGFkZCAxIHRvIHRoZSB2YXJpYWJsZSBjb3VudFxuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuICAgIHByaW50KHBhc3RlMChcIkluIFwiLCB5ZWFyLCBcIiAsIHRoZXJlIHdlcmUgXCIsIGNvdW50LCBcIiBtZXRlb3JpdGVzLlwiKSkgIyBwcmludHMgc2VsZWN0ZWQgeWVhciBhbmQgdGhlIGNvdW50XG4gICAgcmV0dXJuKFRSVUUpICMgcmV0dXJucyBUcnVlXG4gIH1cbiAgZWxzZXtcbiAgICBwcmludChcIkFzIGZhciBhcyB3ZSBrbm93LCB0aGVyZSB3ZXJlIG5vIG1ldGVvcml0ZXMgdGhhdCB5ZWFyXCIpICMgcHJpbnRzIGEgbWVzc2FnZVxuICAgIHJldHVybihGQUxTRSkgIyByZXR1cm5zIEZhbHNlXG4gIH1cbn1cblxuZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCAxODA0KSAjIHJ1biB0aGUgZnVuY3Rpb25cbmBgYCJ9 -->
+<pre class="r"><code>get_meteorite_count &lt;- function(dataframe, year){ # functions takes two arguments
+  count = 0 # create a variable 
+  if(year %in% dataframe$year){ # checks if input year is in a dataset
+    for(i in dataframe$year){ # loops through the rows in a year column
+      if(!is.na(i)){ # excludes missing values
+        if (i == year){ # if loop value equal to the selected
+          count = count + 1 # add 1 to the variable count
+        }
       }
     }
-    print(paste0(&quot;In &quot;, year, &quot; , there were &quot;, count, &quot; meteorites.&quot;))
-    return(TRUE)
+    print(paste0(&quot;In &quot;, year, &quot; , there were &quot;, count, &quot; meteorites.&quot;)) # prints selected year and the count
+    return(TRUE) # returns True
   }
   else{
-    print(&quot;As far as we know, there were no meteorites that year&quot;)
-    return(FALSE)
+    print(&quot;As far as we know, there were no meteorites that year&quot;) # prints a message
+    return(FALSE) # returns False
   }
 }
 
-get_meteorite_count(meteorites, 2005)</code></pre>
+get_meteorite_count(meteorites, 1804) # run the function</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiSW4gMjAwNSAsIHRoZXJlIHdlcmUgNDg3MSBtZXRlb3JpdGVzLlwiXG5bMV0gVFJVRVxuIn0= -->
-<pre><code>[1] &quot;In 2005 , there were 4871 meteorites.&quot;
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiSW4gMTgwNCAsIHRoZXJlIHdlcmUgNCBtZXRlb3JpdGVzLlwiXG5bMV0gVFJVRVxuIn0= -->
+<pre><code>[1] &quot;In 1804 , there were 4 meteorites.&quot;
 [1] TRUE</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>The function can have additional functionality by searching maximun and minimum year in the file and if a year was entered out of a scope, we can we informed about the scope in else statement.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>Plans on how the function could be improved, how could I test that the function works.</li>
+</ol>
+<p>4.1 Test plans</p>
+<p>TEST PLANS</p>
+<p>— Function Improvements —</p>
+<ol style="list-style-type: decimal">
+<li><p>The function can have additional functionality by searching maximun and minimum year in the file and if a year was entered out of a scope, we can we informed about the scope in else statement.</p></li>
+<li><p>The function could be improved by giving an error if a logical or character value was entered.</p></li>
+</ol>
+<p>— Test Plans —</p>
+<p>We can use ‘testthat’ package to perform a unit testing. From where we can use two useful functions ‘expect_equal’ to check that the objects give us an answer/value we would expect, and ‘expect_error’ to check that code throws an error.</p>
 <p>7.Write a unit test for your function to check whether non-numeric inputs (character and logical) for the year argument return an error.</p>
+<p>4.6 Performing test and revising code</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0ZXN0dGhhdClcblxudGVzdF90aGF0KFwiTm9uLW51bWVyaWMgaW5wdXQgcmV0dXJucyBhbiBlcnJvclwiLCB7ICMgZG9lc24ndCB0aHJvdyBhbiBlcnJvclxuICBleHBlY3RfZXJyb3IoZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCBcInllYXJcIikpXG4gIGV4cGVjdF9lcnJvcihnZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsIFRSVUUpKVxufSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0ZXN0dGhhdClcblxudGVzdF90aGF0KFwiTm9uLW51bWVyaWMgaW5wdXQgcmV0dXJucyBhbiBlcnJvclwiLCB7ICMgZmFpbHVyZSBhcyBpdCBkb2Vzbid0IHRocm93IGFuIGVycm9yIC0gYW5kIHdlIGV4cGVjdCBvbmVcbiAgZXhwZWN0X2Vycm9yKGdldF9tZXRlb3JpdGVfY291bnQobWV0ZW9yaXRlcywgXCJ5ZWFyXCIpKVxuICBleHBlY3RfZXJyb3IoZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCBUUlVFKSlcbn0pXG5gYGAifQ== -->
 <pre class="r"><code>library(testthat)
 
-test_that(&quot;Non-numeric input returns an error&quot;, { # doesn&#39;t throw an error
+test_that(&quot;Non-numeric input returns an error&quot;, { # failure as it doesn&#39;t throw an error - and we expect one
   expect_error(get_meteorite_count(meteorites, &quot;year&quot;))
   expect_error(get_meteorite_count(meteorites, TRUE))
 })</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXJcIlxuWzFdIFwiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXJcIlxuLS0gRmFpbHVyZSAoTGluZSAyKTogTm9uLW51bWVyaWMgaW5wdXQgcmV0dXJucyBhbiBlcnJvciAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cbmBnZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsIFwieWVhclwiKWAgZGlkIG5vdCB0aHJvdyBhbiBlcnJvci5cblxuLS0gRmFpbHVyZSAoTGluZSAzKTogTm9uLW51bWVyaWMgaW5wdXQgcmV0dXJucyBhbiBlcnJvciAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cbmBnZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsIFRSVUUpYCBkaWQgbm90IHRocm93IGFuIGVycm9yLlxuIn0= -->
+<pre><code>[1] &quot;As far as we know, there were no meteorites that year&quot;
+[1] &quot;As far as we know, there were no meteorites that year&quot;
+-- Failure (Line 2): Non-numeric input returns an error ------------------------
+`get_meteorite_count(meteorites, &quot;year&quot;)` did not throw an error.
+
+-- Failure (Line 3): Non-numeric input returns an error ------------------------
+`get_meteorite_count(meteorites, TRUE)` did not throw an error.</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGVzdF90aGF0KFwiTWV0ZW9yaXRlIGNvdW50IGZ1bmN0aW9uIGluY2x1ZGVzXCIsIHtcbiAgZXhwZWN0X2VxdWFsKGdldF9tZXRlb3JpdGVfY291bnQobWV0ZW9yaXRlcywgMjAyMCksIEZBTFNFKVxuICBleHBlY3RfZXF1YWwoZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCAyMDA1KSwgVFJVRSlcbn0pXG5gYGAifQ== -->
 <pre class="r"><code>test_that(&quot;Meteorite count function includes&quot;, {
   expect_equal(get_meteorite_count(meteorites, 2020), FALSE)
   expect_equal(get_meteorite_count(meteorites, 2005), TRUE)
 })</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXJcIlxuWzFdIFwiSW4gMjAwNSAsIHRoZXJlIHdlcmUgMTQ2IG1ldGVvcml0ZXMuXCJcblRlc3QgcGFzc2VkIFxuIn0= -->
+<pre><code>[1] &quot;As far as we know, there were no meteorites that year&quot;
+[1] &quot;In 2005 , there were 146 meteorites.&quot;
+Test passed </code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>8.Improve your function based on the result of your test. Instead of going back and changing the function, please create a new function that is the improved version called refactor_get_meteorite_count(). Test your function to make sure it now gives an error when you input a logical or character value as the year. Hint: You can use the stop function to create your own error message.</p>
+<p>Improving the function based on the result from the unit test. Testing the function to make sure it now gives an error when we input a logical or character value as the year.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVmYWN0b3JfZ2V0X21ldGVvcml0ZV9jb3VudCA8LSBmdW5jdGlvbihkYXRhZnJhbWUsIHllYXIpe1xuICBcbiAgaWYgKCFpcy5udW1lcmljKHllYXIpKXtcbiAgICBzdG9wKFwiTm9uLW51bWVyaWMgaW5wdXQuXCIpXG4gIH1cbiAgXG4gIGNvdW50ID0gMFxuICBpZih5ZWFyICVpbiUgZGF0YWZyYW1lJHllYXIpe1xuICAgIGZvcihpIGluIGRhdGFmcmFtZSR5ZWFyKXtcbiAgICAgIGlmKCFpcy5uYShpKSA9PSB5ZWFyKXtcbiAgICAgICAgY291bnQgPSBjb3VudCArIDFcbiAgICAgIH1cbiAgICB9XG4gICAgcHJpbnQocGFzdGUwKFwiSW4gXCIsIHllYXIsIFwiICwgdGhlcmUgd2VyZSBcIiwgY291bnQsIFwiIG1ldGVvcml0ZXMuXCIpKSBcbiAgICByZXR1cm4oVFJVRSlcbiAgfVxuICBlbHNle1xuICAgIHByaW50KFwiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXJcIilcbiAgICByZXR1cm4oRkFMU0UpXG4gIH1cbn1cblxudGVzdF90aGF0KFwiTm9uLW51bWVyaWMgaW5wdXQgcmV0dXJucyBhbiBlcnJvclwiLCB7XG4gIGV4cGVjdF9lcnJvcihyZWZhY3Rvcl9nZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsIFwieWVhclwiKSlcbiAgZXhwZWN0X2Vycm9yKHJlZmFjdG9yX2dldF9tZXRlb3JpdGVfY291bnQobWV0ZW9yaXRlcywgVFJVRSkpXG59KVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVmYWN0b3JfZ2V0X21ldGVvcml0ZV9jb3VudCA8LSBmdW5jdGlvbihkYXRhZnJhbWUsIHllYXIpe1xuICBpZiAoIWlzLm51bWVyaWMoeWVhcikpe1xuICAgIHN0b3AoXCJOb24tbnVtZXJpYyBpbnB1dC5cIilcbiAgfVxuICBjb3VudCA9IDBcbiAgaWYoeWVhciAlaW4lIGRhdGFmcmFtZSR5ZWFyKXtcbiAgICBmb3IoaSBpbiBkYXRhZnJhbWUkeWVhcil7XG4gICAgICBpZighaXMubmEoaSkpe1xuICAgICAgICBpZihpID09IHllYXIpe1xuICAgICAgICAgIGNvdW50ID0gY291bnQgKyAxXG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gICAgcHJpbnQocGFzdGUwKFwiSW4gXCIsIHllYXIsIFwiICwgdGhlcmUgd2VyZSBcIiwgY291bnQsIFwiIG1ldGVvcml0ZXMuXCIpKSBcbiAgICByZXR1cm4oVFJVRSlcbiAgfVxuICBlbHNle1xuICAgIHByaW50KFwiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXJcIilcbiAgICByZXR1cm4oRkFMU0UpXG4gIH1cbn1cbnRlc3RfdGhhdChcIk5vbi1udW1lcmljIGlucHV0IHJldHVybnMgYW4gZXJyb3JcIiwge1xuICBleHBlY3RfZXJyb3IocmVmYWN0b3JfZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCBcInllYXJcIikpXG4gIGV4cGVjdF9lcnJvcihyZWZhY3Rvcl9nZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsIFRSVUUpKVxufSlcbmBgYCJ9 -->
 <pre class="r"><code>refactor_get_meteorite_count &lt;- function(dataframe, year){
-  
   if (!is.numeric(year)){
     stop(&quot;Non-numeric input.&quot;)
   }
-  
   count = 0
   if(year %in% dataframe$year){
     for(i in dataframe$year){
-      if(!is.na(i) == year){
-        count = count + 1
+      if(!is.na(i)){
+        if(i == year){
+          count = count + 1
+        }
       }
     }
     print(paste0(&quot;In &quot;, year, &quot; , there were &quot;, count, &quot; meteorites.&quot;)) 
@@ -370,7 +408,6 @@ test_that(&quot;Non-numeric input returns an error&quot;, { # doesn&#39;t throw 
     return(FALSE)
   }
 }
-
 test_that(&quot;Non-numeric input returns an error&quot;, {
   expect_error(refactor_get_meteorite_count(meteorites, &quot;year&quot;))
   expect_error(refactor_get_meteorite_count(meteorites, TRUE))
@@ -383,7 +420,7 @@ test_that(&quot;Non-numeric input returns an error&quot;, {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7cn0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KYGBgDQoNCjEuIFJlYWQgdGhlIGNsZWFuZWQgZGF0YSBpbnRvIFIuDQpgYGB7cn0NCm1ldGVvcml0ZXMgPC0gcmVhZF9jc3YoImRhdGEvbWV0ZW9yaXRlc19sYW5kaW5nc19jbGVhbi5jc3YiKQ0KYGBgDQoNCjIuIEZpbmQgdGhlIG5hbWVzIGFuZCB5ZWFycyBmb3VuZCBmb3IgdGhlIDEwIGxhcmdlc3QgbWV0ZW9yaXRlcyBpbiB0aGUgZGF0YS4NCmBgYHtyfQ0KbWV0ZW9yaXRlcyAlPiUgDQogIGFycmFuZ2UoZGVzYyhtYXNzX2cpKSAlPiUgDQogIHNlbGVjdChuYW1lLCB5ZWFyKSAlPiUgDQogIGRyb3BfbmEoKSAlPiUgDQogIGhlYWQoMTApDQpgYGANCjMuIEZpbmQgdGhlIGF2ZXJhZ2UgbWFzcyBvZiBtZXRlb3JpdGVzIHRoYXQgd2VyZSByZWNvcmRlZCBmYWxsaW5nLCB2cy4gdGhvc2Ugd2hpY2ggd2VyZSBqdXN0IGZvdW5kLg0KYGBge3J9DQptZXRlb3JpdGVzICU+JSANCiAgZ3JvdXBfYnkoZmFsbCkgJT4lIA0KICBzdW1tYXJpc2UoYXZnID0gbWVhbihtYXNzX2cpKQ0KYGBgDQo0LiBGaW5kIHRoZSBudW1iZXIgb2YgbWV0ZW9yaXRlcyBpbiBlYWNoIHllYXIsIGZvciBldmVyeSB5ZWFyIHNpbmNlIDIwMDAuDQpgYGB7cn0NCm1ldGVvcml0ZXMgJT4lIA0KICBmaWx0ZXIoeWVhciA+PSAyMDAwKSAlPiUgDQogIGdyb3VwX2J5KHllYXIpICU+JSANCiAgc3VtbWFyaXNlKGNvdW50ID0gbigpKQ0KYGBgDQo1LldyaXRlIGEgZnVuY3Rpb24gY2FsbGVkIGdldF9tZXRlb3JpdGVfY291bnQoKSB0aGF0IHRha2VzIGluIHR3byBhcmd1bWVudHM6IGEgZGF0YWZyYW1lIGFuZCBhIHllYXIsIGFuZCByZXR1cm5zIHRoZSBwaHJhc2Ug4oCcSW4gKGlucHV0X3llYXIpLCB0aGVyZSB3ZXJlIChudW1iZXIgb2YgbWV0ZW9yaXRlcyB0aGF0IHllYXIpIG1ldGVvcml0ZXMu4oCdIElGIHRoZXJlIGFyZSAxIG9yIG1vcmUgbWV0ZW9yaXRlcyB0aGF0IHllYXIuIElmIHRoZXJlIGFyZSBubyBtZXRlb3JpdGVzIGluIHRoZSB5ZWFyLCByZXR1cm4gdGhlIHBocmFzZSDigJxBcyBmYXIgYXMgd2Uga25vdywgdGhlcmUgd2VyZSBubyBtZXRlb3JpdGVzIHRoYXQgeWVhcuKAnS4NCg0KYGBge3J9DQpnZXRfbWV0ZW9yaXRlX2NvdW50IDwtIGZ1bmN0aW9uKGRhdGFmcmFtZSwgeWVhcil7DQogIGNvdW50ID0gMA0KICBpZih5ZWFyICVpbiUgZGF0YWZyYW1lJHllYXIpew0KICAgIGZvcihpIGluIGRhdGFmcmFtZSR5ZWFyKXsNCiAgICAgIGlmKCFpcy5uYShpKSA9PSB5ZWFyKXsNCiAgICAgICAgY291bnQgPSBjb3VudCArIDENCiAgICAgIH0NCiAgICB9DQogICAgcHJpbnQocGFzdGUwKCJJbiAiLCB5ZWFyLCAiICwgdGhlcmUgd2VyZSAiLCBjb3VudCwgIiBtZXRlb3JpdGVzLiIpKSAjIGNhdA0KICAgIHJldHVybihUUlVFKQ0KICB9DQogIGVsc2V7DQogICAgcHJpbnQoIkFzIGZhciBhcyB3ZSBrbm93LCB0aGVyZSB3ZXJlIG5vIG1ldGVvcml0ZXMgdGhhdCB5ZWFyIikNCiAgICByZXR1cm4oRkFMU0UpDQogIH0NCn0NCg0KZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCAyMDA1KQ0KYGBgDQoNClRoZSBmdW5jdGlvbiBjYW4gaGF2ZSBhZGRpdGlvbmFsIGZ1bmN0aW9uYWxpdHkgYnkgc2VhcmNoaW5nIG1heGltdW4gYW5kIG1pbmltdW0geWVhciBpbiB0aGUgZmlsZSBhbmQgaWYgYSB5ZWFyIHdhcyBlbnRlcmVkIG91dCBvZiBhIHNjb3BlLCB3ZSBjYW4gd2UgaW5mb3JtZWQgYWJvdXQgdGhlIHNjb3BlIGluIGVsc2Ugc3RhdGVtZW50Lg0KDQo3LldyaXRlIGEgdW5pdCB0ZXN0IGZvciB5b3VyIGZ1bmN0aW9uIHRvIGNoZWNrIHdoZXRoZXIgbm9uLW51bWVyaWMgaW5wdXRzIChjaGFyYWN0ZXIgYW5kIGxvZ2ljYWwpIGZvciB0aGUgeWVhciBhcmd1bWVudCByZXR1cm4gYW4gZXJyb3IuDQpgYGB7cn0NCmxpYnJhcnkodGVzdHRoYXQpDQoNCnRlc3RfdGhhdCgiTm9uLW51bWVyaWMgaW5wdXQgcmV0dXJucyBhbiBlcnJvciIsIHsgIyBkb2Vzbid0IHRocm93IGFuIGVycm9yDQogIGV4cGVjdF9lcnJvcihnZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsICJ5ZWFyIikpDQogIGV4cGVjdF9lcnJvcihnZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsIFRSVUUpKQ0KfSkNCmBgYA0KDQpgYGB7cn0NCnRlc3RfdGhhdCgiTWV0ZW9yaXRlIGNvdW50IGZ1bmN0aW9uIGluY2x1ZGVzIiwgew0KICBleHBlY3RfZXF1YWwoZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCAyMDIwKSwgRkFMU0UpDQogIGV4cGVjdF9lcXVhbChnZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsIDIwMDUpLCBUUlVFKQ0KfSkNCmBgYA0KDQo4LkltcHJvdmUgeW91ciBmdW5jdGlvbiBiYXNlZCBvbiB0aGUgcmVzdWx0IG9mIHlvdXIgdGVzdC4gSW5zdGVhZCBvZiBnb2luZyBiYWNrIGFuZCBjaGFuZ2luZyB0aGUgZnVuY3Rpb24sIHBsZWFzZSBjcmVhdGUgYSBuZXcgZnVuY3Rpb24gdGhhdCBpcyB0aGUgaW1wcm92ZWQgdmVyc2lvbiBjYWxsZWQgcmVmYWN0b3JfZ2V0X21ldGVvcml0ZV9jb3VudCgpLiBUZXN0IHlvdXIgZnVuY3Rpb24gdG8gbWFrZSBzdXJlIGl0IG5vdyBnaXZlcyBhbiBlcnJvciB3aGVuIHlvdSBpbnB1dCBhIGxvZ2ljYWwgb3IgY2hhcmFjdGVyIHZhbHVlIGFzIHRoZSB5ZWFyLiBIaW50OiBZb3UgY2FuIHVzZSB0aGUgc3RvcCBmdW5jdGlvbiB0byBjcmVhdGUgeW91ciBvd24gZXJyb3IgbWVzc2FnZS4NCmBgYHtyfQ0KcmVmYWN0b3JfZ2V0X21ldGVvcml0ZV9jb3VudCA8LSBmdW5jdGlvbihkYXRhZnJhbWUsIHllYXIpew0KICANCiAgaWYgKCFpcy5udW1lcmljKHllYXIpKXsNCiAgICBzdG9wKCJOb24tbnVtZXJpYyBpbnB1dC4iKQ0KICB9DQogIA0KICBjb3VudCA9IDANCiAgaWYoeWVhciAlaW4lIGRhdGFmcmFtZSR5ZWFyKXsNCiAgICBmb3IoaSBpbiBkYXRhZnJhbWUkeWVhcil7DQogICAgICBpZighaXMubmEoaSkgPT0geWVhcil7DQogICAgICAgIGNvdW50ID0gY291bnQgKyAxDQogICAgICB9DQogICAgfQ0KICAgIHByaW50KHBhc3RlMCgiSW4gIiwgeWVhciwgIiAsIHRoZXJlIHdlcmUgIiwgY291bnQsICIgbWV0ZW9yaXRlcy4iKSkgDQogICAgcmV0dXJuKFRSVUUpDQogIH0NCiAgZWxzZXsNCiAgICBwcmludCgiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXIiKQ0KICAgIHJldHVybihGQUxTRSkNCiAgfQ0KfQ0KDQp0ZXN0X3RoYXQoIk5vbi1udW1lcmljIGlucHV0IHJldHVybnMgYW4gZXJyb3IiLCB7DQogIGV4cGVjdF9lcnJvcihyZWZhY3Rvcl9nZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsICJ5ZWFyIikpDQogIGV4cGVjdF9lcnJvcihyZWZhY3Rvcl9nZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsIFRSVUUpKQ0KfSkNCmBgYA0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7cn0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KYGBgDQoNCjEuIFJlYWQgdGhlIGNsZWFuZWQgZGF0YSBpbnRvIFIuDQpgYGB7cn0NCm1ldGVvcml0ZXMgPC0gcmVhZF9jc3YoImRhdGEvbWV0ZW9yaXRlc19sYW5kaW5nc19jbGVhbi5jc3YiKQ0KYGBgDQoNCjIuIEZpbmQgdGhlIG5hbWVzIGFuZCB5ZWFycyBmb3VuZCBmb3IgdGhlIDEwIGxhcmdlc3QgbWV0ZW9yaXRlcyBpbiB0aGUgZGF0YS4NCmBgYHtyfQ0KbWV0ZW9yaXRlcyAlPiUgDQogIGFycmFuZ2UoZGVzYyhtYXNzX2cpKSAlPiUgDQogIHNlbGVjdChuYW1lLCB5ZWFyKSAlPiUgDQogIGRyb3BfbmEoKSAlPiUgDQogIGhlYWQoMTApDQpgYGANCjMuIEZpbmQgdGhlIGF2ZXJhZ2UgbWFzcyBvZiBtZXRlb3JpdGVzIHRoYXQgd2VyZSByZWNvcmRlZCBmYWxsaW5nLCB2cy4gdGhvc2Ugd2hpY2ggd2VyZSBqdXN0IGZvdW5kLg0KYGBge3J9DQptZXRlb3JpdGVzICU+JSANCiAgZ3JvdXBfYnkoZmFsbCkgJT4lIA0KICBzdW1tYXJpc2UoYXZnID0gbWVhbihtYXNzX2cpKQ0KYGBgDQoNCjQuIExvb2tpbmcgZm9yIHRoZSBudW1iZXIgb2YgbWV0ZW9yaXRlcyBpbiBlYWNoIHllYXIsIGZvciBldmVyeSB5ZWFyIHNpbmNlIDIwMDAuDQpgYGB7cn0NCm1ldGVvcml0ZXMgJT4lIA0KICBmaWx0ZXIoeWVhciA+PSAyMDAwKSAlPiUgDQogIGdyb3VwX2J5KHllYXIpICU+JSANCiAgc3VtbWFyaXNlKGNvdW50ID0gbigpKQ0KYGBgDQo1LldyaXRlIGEgZnVuY3Rpb24gY2FsbGVkIGdldF9tZXRlb3JpdGVfY291bnQoKSB0aGF0IHRha2VzIGluIHR3byBhcmd1bWVudHM6IGEgZGF0YWZyYW1lIGFuZCBhIHllYXIsIGFuZCByZXR1cm5zIHRoZSBwaHJhc2Ug4oCcSW4gKGlucHV0X3llYXIpLCB0aGVyZSB3ZXJlIChudW1iZXIgb2YgbWV0ZW9yaXRlcyB0aGF0IHllYXIpIG1ldGVvcml0ZXMu4oCdIElGIHRoZXJlIGFyZSAxIG9yIG1vcmUgbWV0ZW9yaXRlcyB0aGF0IHllYXIuIElmIHRoZXJlIGFyZSBubyBtZXRlb3JpdGVzIGluIHRoZSB5ZWFyLCByZXR1cm4gdGhlIHBocmFzZSDigJxBcyBmYXIgYXMgd2Uga25vdywgdGhlcmUgd2VyZSBubyBtZXRlb3JpdGVzIHRoYXQgeWVhcuKAnS4NCg0KMy41IFdyaXRpbmcgZnVuY3Rpb24vcHJvZ3JhbSB0byBwZXJmb3JtIHN0YXRpc3RpY2FsIGFuYWx5c2lzDQoNCmBgYHtyfQ0KZ2V0X21ldGVvcml0ZV9jb3VudCA8LSBmdW5jdGlvbihkYXRhZnJhbWUsIHllYXIpeyAjIGZ1bmN0aW9ucyB0YWtlcyB0d28gYXJndW1lbnRzDQogIGNvdW50ID0gMCAjIGNyZWF0ZSBhIHZhcmlhYmxlIA0KICBpZih5ZWFyICVpbiUgZGF0YWZyYW1lJHllYXIpeyAjIGNoZWNrcyBpZiBpbnB1dCB5ZWFyIGlzIGluIGEgZGF0YXNldA0KICAgIGZvcihpIGluIGRhdGFmcmFtZSR5ZWFyKXsgIyBsb29wcyB0aHJvdWdoIHRoZSByb3dzIGluIGEgeWVhciBjb2x1bW4NCiAgICAgIGlmKCFpcy5uYShpKSl7ICMgZXhjbHVkZXMgbWlzc2luZyB2YWx1ZXMNCiAgICAgICAgaWYgKGkgPT0geWVhcil7ICMgaWYgbG9vcCB2YWx1ZSBlcXVhbCB0byB0aGUgc2VsZWN0ZWQNCiAgICAgICAgICBjb3VudCA9IGNvdW50ICsgMSAjIGFkZCAxIHRvIHRoZSB2YXJpYWJsZSBjb3VudA0KICAgICAgICB9DQogICAgICB9DQogICAgfQ0KICAgIHByaW50KHBhc3RlMCgiSW4gIiwgeWVhciwgIiAsIHRoZXJlIHdlcmUgIiwgY291bnQsICIgbWV0ZW9yaXRlcy4iKSkgIyBwcmludHMgc2VsZWN0ZWQgeWVhciBhbmQgdGhlIGNvdW50DQogICAgcmV0dXJuKFRSVUUpICMgcmV0dXJucyBUcnVlDQogIH0NCiAgZWxzZXsNCiAgICBwcmludCgiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXIiKSAjIHByaW50cyBhIG1lc3NhZ2UNCiAgICByZXR1cm4oRkFMU0UpICMgcmV0dXJucyBGYWxzZQ0KICB9DQp9DQoNCmdldF9tZXRlb3JpdGVfY291bnQobWV0ZW9yaXRlcywgMTgwNCkgIyBydW4gdGhlIGZ1bmN0aW9uDQpgYGANCjYuIFBsYW5zIG9uIGhvdyB0aGUgZnVuY3Rpb24gY291bGQgYmUgaW1wcm92ZWQsIGhvdyBjb3VsZCBJIHRlc3QgdGhhdCB0aGUgZnVuY3Rpb24gd29ya3MuDQoNCg0KNC4xIFRlc3QgcGxhbnMNCg0KVEVTVCBQTEFOUw0KDQotLS0gRnVuY3Rpb24gSW1wcm92ZW1lbnRzIC0tLQ0KDQoxLiBUaGUgZnVuY3Rpb24gY2FuIGhhdmUgYWRkaXRpb25hbCBmdW5jdGlvbmFsaXR5IGJ5IHNlYXJjaGluZyBtYXhpbXVuIGFuZCBtaW5pbXVtIHllYXIgaW4gdGhlIGZpbGUgYW5kIGlmIGEgeWVhciB3YXMgZW50ZXJlZCBvdXQgb2YgYSBzY29wZSwgd2UgY2FuIHdlIGluZm9ybWVkIGFib3V0IHRoZSBzY29wZSBpbiBlbHNlIHN0YXRlbWVudC4NCg0KMi4gVGhlIGZ1bmN0aW9uIGNvdWxkIGJlIGltcHJvdmVkIGJ5IGdpdmluZyBhbiBlcnJvciBpZiBhIGxvZ2ljYWwgb3IgY2hhcmFjdGVyIHZhbHVlIHdhcyBlbnRlcmVkLiANCg0KLS0tIFRlc3QgUGxhbnMgLS0tDQoNCldlIGNhbiB1c2UgJ3Rlc3R0aGF0JyBwYWNrYWdlIHRvIHBlcmZvcm0gYSB1bml0IHRlc3RpbmcuIEZyb20gd2hlcmUgd2UgY2FuIHVzZSB0d28gdXNlZnVsIGZ1bmN0aW9ucyAnZXhwZWN0X2VxdWFsJyB0byBjaGVjayB0aGF0IHRoZSBvYmplY3RzIGdpdmUgdXMgYW4gYW5zd2VyL3ZhbHVlIHdlIHdvdWxkIGV4cGVjdCwgYW5kICdleHBlY3RfZXJyb3InIHRvIGNoZWNrIHRoYXQgY29kZSB0aHJvd3MgYW4gZXJyb3IuDQoNCg0KDQo3LldyaXRlIGEgdW5pdCB0ZXN0IGZvciB5b3VyIGZ1bmN0aW9uIHRvIGNoZWNrIHdoZXRoZXIgbm9uLW51bWVyaWMgaW5wdXRzIChjaGFyYWN0ZXIgYW5kIGxvZ2ljYWwpIGZvciB0aGUgeWVhciBhcmd1bWVudCByZXR1cm4gYW4gZXJyb3IuDQoNCjQuNiBQZXJmb3JtaW5nIHRlc3QgYW5kIHJldmlzaW5nIGNvZGUNCg0KYGBge3J9DQpsaWJyYXJ5KHRlc3R0aGF0KQ0KDQp0ZXN0X3RoYXQoIk5vbi1udW1lcmljIGlucHV0IHJldHVybnMgYW4gZXJyb3IiLCB7ICMgZmFpbHVyZSBhcyBpdCBkb2Vzbid0IHRocm93IGFuIGVycm9yIC0gYW5kIHdlIGV4cGVjdCBvbmUNCiAgZXhwZWN0X2Vycm9yKGdldF9tZXRlb3JpdGVfY291bnQobWV0ZW9yaXRlcywgInllYXIiKSkNCiAgZXhwZWN0X2Vycm9yKGdldF9tZXRlb3JpdGVfY291bnQobWV0ZW9yaXRlcywgVFJVRSkpDQp9KQ0KdGVzdF90aGF0KCJNZXRlb3JpdGUgY291bnQgZnVuY3Rpb24gaW5jbHVkZXMiLCB7DQogIGV4cGVjdF9lcXVhbChnZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsIDIwMjApLCBGQUxTRSkNCiAgZXhwZWN0X2VxdWFsKGdldF9tZXRlb3JpdGVfY291bnQobWV0ZW9yaXRlcywgMjAwNSksIFRSVUUpDQp9KQ0KYGBgDQpJbXByb3ZpbmcgdGhlIGZ1bmN0aW9uIGJhc2VkIG9uIHRoZSByZXN1bHQgZnJvbSB0aGUgdW5pdCB0ZXN0LiBUZXN0aW5nIHRoZSBmdW5jdGlvbiB0byBtYWtlIHN1cmUgaXQgbm93IGdpdmVzIGFuIGVycm9yIHdoZW4gd2UgaW5wdXQgYSBsb2dpY2FsIG9yIGNoYXJhY3RlciB2YWx1ZSBhcyB0aGUgeWVhci4NCmBgYHtyfQ0KcmVmYWN0b3JfZ2V0X21ldGVvcml0ZV9jb3VudCA8LSBmdW5jdGlvbihkYXRhZnJhbWUsIHllYXIpew0KICBpZiAoIWlzLm51bWVyaWMoeWVhcikpew0KICAgIHN0b3AoIk5vbi1udW1lcmljIGlucHV0LiIpDQogIH0NCiAgY291bnQgPSAwDQogIGlmKHllYXIgJWluJSBkYXRhZnJhbWUkeWVhcil7DQogICAgZm9yKGkgaW4gZGF0YWZyYW1lJHllYXIpew0KICAgICAgaWYoIWlzLm5hKGkpKXsNCiAgICAgICAgaWYoaSA9PSB5ZWFyKXsNCiAgICAgICAgICBjb3VudCA9IGNvdW50ICsgMQ0KICAgICAgICB9DQogICAgICB9DQogICAgfQ0KICAgIHByaW50KHBhc3RlMCgiSW4gIiwgeWVhciwgIiAsIHRoZXJlIHdlcmUgIiwgY291bnQsICIgbWV0ZW9yaXRlcy4iKSkgDQogICAgcmV0dXJuKFRSVUUpDQogIH0NCiAgZWxzZXsNCiAgICBwcmludCgiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXIiKQ0KICAgIHJldHVybihGQUxTRSkNCiAgfQ0KfQ0KdGVzdF90aGF0KCJOb24tbnVtZXJpYyBpbnB1dCByZXR1cm5zIGFuIGVycm9yIiwgew0KICBleHBlY3RfZXJyb3IocmVmYWN0b3JfZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCAieWVhciIpKQ0KICBleHBlY3RfZXJyb3IocmVmYWN0b3JfZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCBUUlVFKSkNCn0pDQpgYGANCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0K</div>
 
 
 
