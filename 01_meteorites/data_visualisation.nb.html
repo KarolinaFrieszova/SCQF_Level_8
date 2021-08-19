@@ -217,197 +217,39 @@ pre code {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5tZXRlb3JpdGVzIDwtIHJlYWRfY3N2KFwiZGF0YS9tZXRlb3JpdGVzX2xhbmRpbmdzX2NsZWFuLmNzdlwiKVxuYGBgIn0= -->
+<pre class="r"><code>library(tidyverse)
+meteorites &lt;- read_csv(&quot;data/meteorites_landings_clean.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<ol style="list-style-type: decimal">
-<li>Read the cleaned data into R.</li>
-</ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWV0ZW9yaXRlcyA8LSByZWFkX2NzdihcImRhdGEvbWV0ZW9yaXRlc19sYW5kaW5nc19jbGVhbi5jc3ZcIilcbmBgYCJ9 -->
-<pre class="r"><code>meteorites &lt;- read_csv(&quot;data/meteorites_landings_clean.csv&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<ol start="2" style="list-style-type: decimal">
-<li>Find the names and years found for the 10 largest meteorites in the data.</li>
-</ol>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWV0ZW9yaXRlcyAlPiUgXG4gIGFycmFuZ2UoZGVzYyhtYXNzX2cpKSAlPiUgXG4gIHNlbGVjdChuYW1lLCB5ZWFyKSAlPiUgXG4gIGRyb3BfbmEoKSAlPiUgXG4gIGhlYWQoMTApXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWV0ZW9yaXRlcyAlPiUgXG4gIGdncGxvdCgpK1xuICBhZXMoeCA9IGZhbGwpK1xuICBnZW9tX2JhcigpXG5gYGAifQ== -->
 <pre class="r"><code>meteorites %&gt;% 
-  arrange(desc(mass_g)) %&gt;% 
-  select(name, year) %&gt;% 
-  drop_na() %&gt;% 
-  head(10)</code></pre>
+  ggplot()+
+  aes(x = fall)+
+  geom_bar()</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MTAsIm5jb2wiOjIsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMTAgeCAyIl19fSwicmRmIjoiSDRzSUFBQUFBQUFBQmwxUnNVN0RNQkIxMDZaVkFxMHFzVEowWkdra1dqR3d0YVFTTEpVUUxHVjBFa09zdW5ia09JSnVmQUNmQUowWitTQStnb214d1U3T0NHTEp1WGZ2L081eWR6ZUwxZFJmK1FpaE51b2dGN1ZkRFZFM3ZENmRuRTBRNmpqYWErbUlaK3lUZm5Xa2dTR0grdm9RNkZ5SkNBUDJRcHlSMFoyUWF5RDZJZVpid1VjTGlpTW1nT3pONVFaenRRVzNlMGtqSWpoNGZwZ1dHVTZJRkRrd0I4dUNKeEpIbERGYjUvQ1dybE9oeUhqTzZLL3dBc2RGUkNWVnRvNjdqRVJPTlJpWThHeUhxak43VFd2NzlnTDJIZmdQc0YvQWY5WjJ4OEEvQnYra1R2Ui9QaTdIRzVMRGJCdzdHME5hdkNWWU5rU2VGSStCRmZhTjhGbC95ckw4Ym1hUEdjNXRka3Y2Q1ZZNHVKZW1Ca0w3aHFRbk1rVUYxeUxIck0xdGlGdXlRUXdMYnY0a0djZHB3ZGZqNlhtMVl4T3ZUeCt3L3djN2RVMm5oRnl1WFNuaEQ1VGJ6bDJHSThMQUdlaVdxNDZEVEZLdWJDdWF6UU1sRkxidi9GZ3d5MVROb2YwUEk0bGZrNjhDQUFBPSJ9 -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hoba","2":"1920"},{"1":"Cape York","2":"1818"},{"1":"Canyon Diablo","2":"1891"},{"1":"Armanty","2":"1898"},{"1":"Gibeon","2":"1836"},{"1":"Chupaderos","2":"1852"},{"1":"Mundrabilla","2":"1911"},{"1":"Sikhote-Alin","2":"1947"},{"1":"Bacubirito","2":"1863"},{"1":"Mbosi","2":"1930"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[10]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
+<!-- rnb-plot-begin eyJoZWlnaHQiOjQzMi42MzI5LCJ3aWR0aCI6NzAwLCJzaXplX2JlaGF2aW9yIjowLCJjb25kaXRpb25zIjpbXX0= -->
+<p><img src="data:image/png;base64,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RhkvmfOMMl4y5xllvGTOM8p4yZxnlPGSOc8o4yVznlHGS+Y8o4yXzHlGGS+Z84wyXjLnGWW8ZM4z6gDxXr2aHZ0b7zacZ9T+470+OZ6fPTHebTjPqP3He/XmdH75/NR4t+A8o/Yf7+WL8/nV67eLHz1eyP6stFthvBdHt/EuBf+y1E3qZgumtM+W8f528hrv78uU9tky3q2feesmdbMFU9pny3ivT15u925D3aRutmBK+2wZ79bv89ZN6mYLprTPtvEOtP8hEpO62YIp7WO8GpjSPsargSntY7wamNI+xquBKe1jvBqY0j7Gq4Ep7WO8GpjSPsargSntY7wamNI+xquBKe2zk3inxP9zftwU9zFerUxxH+PVyhT3MV6tTHGff5h49ftjvJos49VkGa8my3g1Wb/zeC+fzRZe3v7s+elvX7f/D224y+eW35OO7/ce76BV47113wzGC3D7Il29mn1/ary/+myX1TYv/ms2O1794j//yXjrbl+kd6vvlWK8t+7scnF0fhvvs9XPVr84M9661bPdk9W3V7t6c2q8t253eXO63OY23pvL8hd9bAD42OriP4Sz2XdvjffWxxmWl+u/fBLv6mPvjLfuNt43t6+V8a7c2cWTl+qzZzvjXRnusnyqOvv+Nl6feSHufFb93VtP3l8N322Yn81m//Hm13ivT3y3Qdov49VkGa8my3g1WcaryTJeTZbxHtjPj7768eMPf/mnHxd/Ve9m2oz3sD48/eHXHxvvAxnvYd2t1XgfyHgP6pdvHj36evX3R98a70MZ72Eta109Ovz8h78a7wMZ72Eta/2/v81vnxmM9yGM97Buan2/eGz4yngfyngP6+ax4asfPXl3wHgPa1nr+z8unhvee/I+mPEe1ire5cH7jfE+mPEe1qrWnxZPvP/59AfjfSDj1WQZrybLeDVZxqvJMl5NlvFqsoxXk2W8mizj1WQZrybr/wGvmtI/osxW3QAAAABJRU5ErkJggg==" /></p>
+<!-- rnb-plot-end -->
 <!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<ol start="3" style="list-style-type: decimal">
-<li>Find the average mass of meteorites that were recorded falling, vs. those which were just found.</li>
-</ol>
-<!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWV0ZW9yaXRlcyAlPiUgXG4gIGdyb3VwX2J5KGZhbGwpICU+JSBcbiAgc3VtbWFyaXNlKGF2ZyA9IG1lYW4obWFzc19nKSlcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWV0ZW9yaXRlcyAlPiUgXG4gIGdncGxvdCgpK1xuICBhZXMoeCA9IHllYXIsIGZpbGwgPSBmYWxsKStcbiAgZ2VvbV9oaXN0b2dyYW0oYmlud2lkdGggPSAxMDAsIHBvc2l0aW9uPXBvc2l0aW9uX2RvZGdlKCkpXG5gYGAifQ== -->
 <pre class="r"><code>meteorites %&gt;% 
-  group_by(fall) %&gt;% 
-  summarise(avg = mean(mass_g))</code></pre>
+  ggplot()+
+  aes(x = year, fill = fall)+
+  geom_histogram(binwidth = 100, position=position_dodge())</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUJndHlpVERtaXVCaVlHQmdabUJoWUdWZ1pnVXlHZGljQXd5TlRJMFlHRmlZZ0R4R29Bd25pSzRBcWhJR01rQ0NBbUFhSXNIaWxwcVRBMld6dXVXWDVxVUFHWHdnQlE0ZjVuREZucnh4d0pIQjNWOVo2dlI3TkJOWjh4SnpVNHZSVFV0TGhKdkduRmlXanFhSHN5aS9YQSttanhla3J3RkkvUC8vL3grNjRjazVpY1V3dzJHQ1hDbUpKWWw2YVVWQS9VQWV1aGIyL0lLU3pQdzhvQ1lta0Q5WjBUUXpGcUVKQ0pUbWdWeVNvcHVjVVpxWHJXdGlBTElCTEE4QnZGQTJFeW9iWkNmVGY2aFpyRkN6MkZMejBqUHpVbUdPejBsTVNvV0ZBaC9ReTJBZjZ4VVVaZWFWd0x3Q0ZDM1dLOGt2U1lTcDQwck96NEdKZ0QzSDhBOEFVcndTeCtBQkFBQT0ifQ== -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["fall"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avg"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Fell","2":"68032.65"},{"1":"Found","2":"133353.89"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<ol start="4" style="list-style-type: decimal">
-<li>Looking for the number of meteorites in each year, for every year since 2000.</li>
-</ol>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWV0ZW9yaXRlcyAlPiUgXG4gIGZpbHRlcih5ZWFyID49IDIwMDApICU+JSBcbiAgZ3JvdXBfYnkoeWVhcikgJT4lIFxuICBzdW1tYXJpc2UoY291bnQgPSBuKCkpXG5gYGAifQ== -->
-<pre class="r"><code>meteorites %&gt;% 
-  filter(year &gt;= 2000) %&gt;% 
-  group_by(year) %&gt;% 
-  summarise(count = n())</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MTQsIm5jb2wiOjIsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMTQgeCAyIl19fSwicmRmIjoiSDRzSUFBQUFBQUFBQmwyUXdVckRRQkNHSjJsU2FjQlM4RGthYUxYM2dBVTllQ2ppb1lJSDF5UzJ3Ymdia2czYW15L2d4UmZvMFhmd0ZUejVITjU4Z01aLzAxbkVCUDU4czdNenN6TnpPVjhlQjh1QWlIcmtrVTg5SHliMVR4ZVQ2V3hLNUxrNE9iZ1pHRDRqNmdpR2NRNk5vbTFrd2luYXpwbm56QXZtZ25uRlhESnZtTGZNaExsbTVzeUNxWW0vUTM3N0cvcUFQcUV2NkJWNmc5NmhNOGdVWGtIWDBBYWE3ZnYrTjVBdnhXTmF3UmkxbDN1bnQwbEZhUU5pVlV2ZHlScVU2aW0wbWFZZDl3Vy9wbWwrdXVYalhGUzJ2SFVHaWRBaXZDK1JqOU91azNLZ0NwMHBpU1RYTE5ydkpEdGx4ekdxcGVra0djZnJXajZNVHlibWhmYitiMXNPYjh6YXZBVzM0Vm8rMStxbmNwWEoxRGFmaTdzMDU4TVFJN2NUaDBXWllTRThDcnhWcUpVV05pNklWVzQ5N1hDMCt3V01GR05NWVFJQUFBPT0ifQ== -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["year"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["count"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"2000","2":"235"},{"1":"2001","2":"186"},{"1":"2002","2":"203"},{"1":"2003","2":"209"},{"1":"2004","2":"141"},{"1":"2005","2":"146"},{"1":"2006","2":"167"},{"1":"2007","2":"71"},{"1":"2008","2":"96"},{"1":"2009","2":"103"},{"1":"2010","2":"89"},{"1":"2011","2":"121"},{"1":"2012","2":"53"},{"1":"2013","2":"2"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[14]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>5.Write a function called get_meteorite_count() that takes in two arguments: a dataframe and a year, and returns the phrase “In (input_year), there were (number of meteorites that year) meteorites.” IF there are 1 or more meteorites that year. If there are no meteorites in the year, return the phrase “As far as we know, there were no meteorites that year”.</p>
-<p>3.5 Writing function/program to perform statistical analysis</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2V0X21ldGVvcml0ZV9jb3VudCA8LSBmdW5jdGlvbihkYXRhZnJhbWUsIHllYXIpeyAjIGZ1bmN0aW9ucyB0YWtlcyB0d28gYXJndW1lbnRzXG4gIGNvdW50ID0gMCAjIGNyZWF0ZSBhIHZhcmlhYmxlIFxuICBpZih5ZWFyICVpbiUgZGF0YWZyYW1lJHllYXIpeyAjIGNoZWNrcyBpZiBpbnB1dCB5ZWFyIGlzIGluIGEgZGF0YXNldFxuICAgIGZvcihpIGluIGRhdGFmcmFtZSR5ZWFyKXsgIyBsb29wcyB0aHJvdWdoIHRoZSByb3dzIGluIGEgeWVhciBjb2x1bW5cbiAgICAgIGlmKCFpcy5uYShpKSl7ICMgZXhjbHVkZXMgbWlzc2luZyB2YWx1ZXNcbiAgICAgICAgaWYgKGkgPT0geWVhcil7ICMgaWYgbG9vcCB2YWx1ZSBlcXVhbCB0byB0aGUgc2VsZWN0ZWRcbiAgICAgICAgICBjb3VudCA9IGNvdW50ICsgMSAjIGFkZCAxIHRvIHRoZSB2YXJpYWJsZSBjb3VudFxuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuICAgIHByaW50KHBhc3RlMChcIkluIFwiLCB5ZWFyLCBcIiAsIHRoZXJlIHdlcmUgXCIsIGNvdW50LCBcIiBtZXRlb3JpdGVzLlwiKSkgIyBwcmludHMgc2VsZWN0ZWQgeWVhciBhbmQgdGhlIGNvdW50XG4gICAgcmV0dXJuKFRSVUUpICMgcmV0dXJucyBUcnVlXG4gIH1cbiAgZWxzZXtcbiAgICBwcmludChcIkFzIGZhciBhcyB3ZSBrbm93LCB0aGVyZSB3ZXJlIG5vIG1ldGVvcml0ZXMgdGhhdCB5ZWFyXCIpICMgcHJpbnRzIGEgbWVzc2FnZVxuICAgIHJldHVybihGQUxTRSkgIyByZXR1cm5zIEZhbHNlXG4gIH1cbn1cblxuZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCAxODA0KSAjIHJ1biB0aGUgZnVuY3Rpb25cbmBgYCJ9 -->
-<pre class="r"><code>get_meteorite_count &lt;- function(dataframe, year){ # functions takes two arguments
-  count = 0 # create a variable 
-  if(year %in% dataframe$year){ # checks if input year is in a dataset
-    for(i in dataframe$year){ # loops through the rows in a year column
-      if(!is.na(i)){ # excludes missing values
-        if (i == year){ # if loop value equal to the selected
-          count = count + 1 # add 1 to the variable count
-        }
-      }
-    }
-    print(paste0(&quot;In &quot;, year, &quot; , there were &quot;, count, &quot; meteorites.&quot;)) # prints selected year and the count
-    return(TRUE) # returns True
-  }
-  else{
-    print(&quot;As far as we know, there were no meteorites that year&quot;) # prints a message
-    return(FALSE) # returns False
-  }
-}
-
-get_meteorite_count(meteorites, 1804) # run the function</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiSW4gMTgwNCAsIHRoZXJlIHdlcmUgNCBtZXRlb3JpdGVzLlwiXG5bMV0gVFJVRVxuIn0= -->
-<pre><code>[1] &quot;In 1804 , there were 4 meteorites.&quot;
-[1] TRUE</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<ol start="6" style="list-style-type: decimal">
-<li>Plans on how the function could be improved, how could I test that the function works.</li>
-</ol>
-<p>4.1 Test plans</p>
-<p>TEST PLANS</p>
-<p>— Function Improvements —</p>
-<ol style="list-style-type: decimal">
-<li><p>The function can have additional functionality by searching maximun and minimum year in the file and if a year was entered out of a scope, we can we informed about the scope in else statement.</p></li>
-<li><p>The function could be improved by giving an error if a logical or character value was entered.</p></li>
-</ol>
-<p>— Test Plans —</p>
-<p>We can use ‘testthat’ package to perform a unit testing. From where we can use two useful functions ‘expect_equal’ to check that the objects give us an answer/value we would expect, and ‘expect_error’ to check that code throws an error.</p>
-<p>7.Write a unit test for your function to check whether non-numeric inputs (character and logical) for the year argument return an error.</p>
-<p>4.6 Performing test and revising code</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0ZXN0dGhhdClcblxudGVzdF90aGF0KFwiTm9uLW51bWVyaWMgaW5wdXQgcmV0dXJucyBhbiBlcnJvclwiLCB7ICMgZmFpbHVyZSBhcyBpdCBkb2Vzbid0IHRocm93IGFuIGVycm9yIC0gYW5kIHdlIGV4cGVjdCBvbmVcbiAgZXhwZWN0X2Vycm9yKGdldF9tZXRlb3JpdGVfY291bnQobWV0ZW9yaXRlcywgXCJ5ZWFyXCIpKVxuICBleHBlY3RfZXJyb3IoZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCBUUlVFKSlcbn0pXG5gYGAifQ== -->
-<pre class="r"><code>library(testthat)
-
-test_that(&quot;Non-numeric input returns an error&quot;, { # failure as it doesn&#39;t throw an error - and we expect one
-  expect_error(get_meteorite_count(meteorites, &quot;year&quot;))
-  expect_error(get_meteorite_count(meteorites, TRUE))
-})</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXJcIlxuWzFdIFwiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXJcIlxuLS0gRmFpbHVyZSAoTGluZSAyKTogTm9uLW51bWVyaWMgaW5wdXQgcmV0dXJucyBhbiBlcnJvciAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cbmBnZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsIFwieWVhclwiKWAgZGlkIG5vdCB0aHJvdyBhbiBlcnJvci5cblxuLS0gRmFpbHVyZSAoTGluZSAzKTogTm9uLW51bWVyaWMgaW5wdXQgcmV0dXJucyBhbiBlcnJvciAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cbmBnZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsIFRSVUUpYCBkaWQgbm90IHRocm93IGFuIGVycm9yLlxuIn0= -->
-<pre><code>[1] &quot;As far as we know, there were no meteorites that year&quot;
-[1] &quot;As far as we know, there were no meteorites that year&quot;
--- Failure (Line 2): Non-numeric input returns an error ------------------------
-`get_meteorite_count(meteorites, &quot;year&quot;)` did not throw an error.
-
--- Failure (Line 3): Non-numeric input returns an error ------------------------
-`get_meteorite_count(meteorites, TRUE)` did not throw an error.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGVzdF90aGF0KFwiTWV0ZW9yaXRlIGNvdW50IGZ1bmN0aW9uIGluY2x1ZGVzXCIsIHtcbiAgZXhwZWN0X2VxdWFsKGdldF9tZXRlb3JpdGVfY291bnQobWV0ZW9yaXRlcywgMjAyMCksIEZBTFNFKVxuICBleHBlY3RfZXF1YWwoZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCAyMDA1KSwgVFJVRSlcbn0pXG5gYGAifQ== -->
-<pre class="r"><code>test_that(&quot;Meteorite count function includes&quot;, {
-  expect_equal(get_meteorite_count(meteorites, 2020), FALSE)
-  expect_equal(get_meteorite_count(meteorites, 2005), TRUE)
-})</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXJcIlxuWzFdIFwiSW4gMjAwNSAsIHRoZXJlIHdlcmUgMTQ2IG1ldGVvcml0ZXMuXCJcblRlc3QgcGFzc2VkIFxuIn0= -->
-<pre><code>[1] &quot;As far as we know, there were no meteorites that year&quot;
-[1] &quot;In 2005 , there were 146 meteorites.&quot;
-Test passed </code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Improving the function based on the result from the unit test. Testing the function to make sure it now gives an error when we input a logical or character value as the year.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVmYWN0b3JfZ2V0X21ldGVvcml0ZV9jb3VudCA8LSBmdW5jdGlvbihkYXRhZnJhbWUsIHllYXIpe1xuICBpZiAoIWlzLm51bWVyaWMoeWVhcikpe1xuICAgIHN0b3AoXCJOb24tbnVtZXJpYyBpbnB1dC5cIilcbiAgfVxuICBjb3VudCA9IDBcbiAgaWYoeWVhciAlaW4lIGRhdGFmcmFtZSR5ZWFyKXtcbiAgICBmb3IoaSBpbiBkYXRhZnJhbWUkeWVhcil7XG4gICAgICBpZighaXMubmEoaSkpe1xuICAgICAgICBpZihpID09IHllYXIpe1xuICAgICAgICAgIGNvdW50ID0gY291bnQgKyAxXG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gICAgcHJpbnQocGFzdGUwKFwiSW4gXCIsIHllYXIsIFwiICwgdGhlcmUgd2VyZSBcIiwgY291bnQsIFwiIG1ldGVvcml0ZXMuXCIpKSBcbiAgICByZXR1cm4oVFJVRSlcbiAgfVxuICBlbHNle1xuICAgIHByaW50KFwiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXJcIilcbiAgICByZXR1cm4oRkFMU0UpXG4gIH1cbn1cbnRlc3RfdGhhdChcIk5vbi1udW1lcmljIGlucHV0IHJldHVybnMgYW4gZXJyb3JcIiwge1xuICBleHBlY3RfZXJyb3IocmVmYWN0b3JfZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCBcInllYXJcIikpXG4gIGV4cGVjdF9lcnJvcihyZWZhY3Rvcl9nZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsIFRSVUUpKVxufSlcbmBgYCJ9 -->
-<pre class="r"><code>refactor_get_meteorite_count &lt;- function(dataframe, year){
-  if (!is.numeric(year)){
-    stop(&quot;Non-numeric input.&quot;)
-  }
-  count = 0
-  if(year %in% dataframe$year){
-    for(i in dataframe$year){
-      if(!is.na(i)){
-        if(i == year){
-          count = count + 1
-        }
-      }
-    }
-    print(paste0(&quot;In &quot;, year, &quot; , there were &quot;, count, &quot; meteorites.&quot;)) 
-    return(TRUE)
-  }
-  else{
-    print(&quot;As far as we know, there were no meteorites that year&quot;)
-    return(FALSE)
-  }
-}
-test_that(&quot;Non-numeric input returns an error&quot;, {
-  expect_error(refactor_get_meteorite_count(meteorites, &quot;year&quot;))
-  expect_error(refactor_get_meteorite_count(meteorites, TRUE))
-})</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGVzdCBwYXNzZWQgXG4ifQ== -->
-<pre><code>Test passed </code></pre>
-<!-- rnb-output-end -->
+<!-- rnb-plot-begin eyJoZWlnaHQiOjQzMi42MzI5LCJ3aWR0aCI6NzAwLCJzaXplX2JlaGF2aW9yIjowLCJjb25kaXRpb25zIjpbWzEsIlJlbW92ZWQgNTcgcm93cyBjb250YWluaW5nIG5vbi1maW5pdGUgdmFsdWVzIChzdGF0X2JpbikuIl1dfQ== -->
+<p><img src="data:image/png;base64,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" /></p>
+<!-- rnb-plot-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7cn0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KYGBgDQoNCjEuIFJlYWQgdGhlIGNsZWFuZWQgZGF0YSBpbnRvIFIuDQpgYGB7cn0NCm1ldGVvcml0ZXMgPC0gcmVhZF9jc3YoImRhdGEvbWV0ZW9yaXRlc19sYW5kaW5nc19jbGVhbi5jc3YiKQ0KYGBgDQoNCjIuIEZpbmQgdGhlIG5hbWVzIGFuZCB5ZWFycyBmb3VuZCBmb3IgdGhlIDEwIGxhcmdlc3QgbWV0ZW9yaXRlcyBpbiB0aGUgZGF0YS4NCmBgYHtyfQ0KbWV0ZW9yaXRlcyAlPiUgDQogIGFycmFuZ2UoZGVzYyhtYXNzX2cpKSAlPiUgDQogIHNlbGVjdChuYW1lLCB5ZWFyKSAlPiUgDQogIGRyb3BfbmEoKSAlPiUgDQogIGhlYWQoMTApDQpgYGANCjMuIEZpbmQgdGhlIGF2ZXJhZ2UgbWFzcyBvZiBtZXRlb3JpdGVzIHRoYXQgd2VyZSByZWNvcmRlZCBmYWxsaW5nLCB2cy4gdGhvc2Ugd2hpY2ggd2VyZSBqdXN0IGZvdW5kLg0KYGBge3J9DQptZXRlb3JpdGVzICU+JSANCiAgZ3JvdXBfYnkoZmFsbCkgJT4lIA0KICBzdW1tYXJpc2UoYXZnID0gbWVhbihtYXNzX2cpKQ0KYGBgDQoNCjQuIExvb2tpbmcgZm9yIHRoZSBudW1iZXIgb2YgbWV0ZW9yaXRlcyBpbiBlYWNoIHllYXIsIGZvciBldmVyeSB5ZWFyIHNpbmNlIDIwMDAuDQpgYGB7cn0NCm1ldGVvcml0ZXMgJT4lIA0KICBmaWx0ZXIoeWVhciA+PSAyMDAwKSAlPiUgDQogIGdyb3VwX2J5KHllYXIpICU+JSANCiAgc3VtbWFyaXNlKGNvdW50ID0gbigpKQ0KYGBgDQo1LldyaXRlIGEgZnVuY3Rpb24gY2FsbGVkIGdldF9tZXRlb3JpdGVfY291bnQoKSB0aGF0IHRha2VzIGluIHR3byBhcmd1bWVudHM6IGEgZGF0YWZyYW1lIGFuZCBhIHllYXIsIGFuZCByZXR1cm5zIHRoZSBwaHJhc2Ug4oCcSW4gKGlucHV0X3llYXIpLCB0aGVyZSB3ZXJlIChudW1iZXIgb2YgbWV0ZW9yaXRlcyB0aGF0IHllYXIpIG1ldGVvcml0ZXMu4oCdIElGIHRoZXJlIGFyZSAxIG9yIG1vcmUgbWV0ZW9yaXRlcyB0aGF0IHllYXIuIElmIHRoZXJlIGFyZSBubyBtZXRlb3JpdGVzIGluIHRoZSB5ZWFyLCByZXR1cm4gdGhlIHBocmFzZSDigJxBcyBmYXIgYXMgd2Uga25vdywgdGhlcmUgd2VyZSBubyBtZXRlb3JpdGVzIHRoYXQgeWVhcuKAnS4NCg0KMy41IFdyaXRpbmcgZnVuY3Rpb24vcHJvZ3JhbSB0byBwZXJmb3JtIHN0YXRpc3RpY2FsIGFuYWx5c2lzDQoNCmBgYHtyfQ0KZ2V0X21ldGVvcml0ZV9jb3VudCA8LSBmdW5jdGlvbihkYXRhZnJhbWUsIHllYXIpeyAjIGZ1bmN0aW9ucyB0YWtlcyB0d28gYXJndW1lbnRzDQogIGNvdW50ID0gMCAjIGNyZWF0ZSBhIHZhcmlhYmxlIA0KICBpZih5ZWFyICVpbiUgZGF0YWZyYW1lJHllYXIpeyAjIGNoZWNrcyBpZiBpbnB1dCB5ZWFyIGlzIGluIGEgZGF0YXNldA0KICAgIGZvcihpIGluIGRhdGFmcmFtZSR5ZWFyKXsgIyBsb29wcyB0aHJvdWdoIHRoZSByb3dzIGluIGEgeWVhciBjb2x1bW4NCiAgICAgIGlmKCFpcy5uYShpKSl7ICMgZXhjbHVkZXMgbWlzc2luZyB2YWx1ZXMNCiAgICAgICAgaWYgKGkgPT0geWVhcil7ICMgaWYgbG9vcCB2YWx1ZSBlcXVhbCB0byB0aGUgc2VsZWN0ZWQNCiAgICAgICAgICBjb3VudCA9IGNvdW50ICsgMSAjIGFkZCAxIHRvIHRoZSB2YXJpYWJsZSBjb3VudA0KICAgICAgICB9DQogICAgICB9DQogICAgfQ0KICAgIHByaW50KHBhc3RlMCgiSW4gIiwgeWVhciwgIiAsIHRoZXJlIHdlcmUgIiwgY291bnQsICIgbWV0ZW9yaXRlcy4iKSkgIyBwcmludHMgc2VsZWN0ZWQgeWVhciBhbmQgdGhlIGNvdW50DQogICAgcmV0dXJuKFRSVUUpICMgcmV0dXJucyBUcnVlDQogIH0NCiAgZWxzZXsNCiAgICBwcmludCgiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXIiKSAjIHByaW50cyBhIG1lc3NhZ2UNCiAgICByZXR1cm4oRkFMU0UpICMgcmV0dXJucyBGYWxzZQ0KICB9DQp9DQoNCmdldF9tZXRlb3JpdGVfY291bnQobWV0ZW9yaXRlcywgMTgwNCkgIyBydW4gdGhlIGZ1bmN0aW9uDQpgYGANCjYuIFBsYW5zIG9uIGhvdyB0aGUgZnVuY3Rpb24gY291bGQgYmUgaW1wcm92ZWQsIGhvdyBjb3VsZCBJIHRlc3QgdGhhdCB0aGUgZnVuY3Rpb24gd29ya3MuDQoNCg0KNC4xIFRlc3QgcGxhbnMNCg0KVEVTVCBQTEFOUw0KDQotLS0gRnVuY3Rpb24gSW1wcm92ZW1lbnRzIC0tLQ0KDQoxLiBUaGUgZnVuY3Rpb24gY2FuIGhhdmUgYWRkaXRpb25hbCBmdW5jdGlvbmFsaXR5IGJ5IHNlYXJjaGluZyBtYXhpbXVuIGFuZCBtaW5pbXVtIHllYXIgaW4gdGhlIGZpbGUgYW5kIGlmIGEgeWVhciB3YXMgZW50ZXJlZCBvdXQgb2YgYSBzY29wZSwgd2UgY2FuIHdlIGluZm9ybWVkIGFib3V0IHRoZSBzY29wZSBpbiBlbHNlIHN0YXRlbWVudC4NCg0KMi4gVGhlIGZ1bmN0aW9uIGNvdWxkIGJlIGltcHJvdmVkIGJ5IGdpdmluZyBhbiBlcnJvciBpZiBhIGxvZ2ljYWwgb3IgY2hhcmFjdGVyIHZhbHVlIHdhcyBlbnRlcmVkLiANCg0KLS0tIFRlc3QgUGxhbnMgLS0tDQoNCldlIGNhbiB1c2UgJ3Rlc3R0aGF0JyBwYWNrYWdlIHRvIHBlcmZvcm0gYSB1bml0IHRlc3RpbmcuIEZyb20gd2hlcmUgd2UgY2FuIHVzZSB0d28gdXNlZnVsIGZ1bmN0aW9ucyAnZXhwZWN0X2VxdWFsJyB0byBjaGVjayB0aGF0IHRoZSBvYmplY3RzIGdpdmUgdXMgYW4gYW5zd2VyL3ZhbHVlIHdlIHdvdWxkIGV4cGVjdCwgYW5kICdleHBlY3RfZXJyb3InIHRvIGNoZWNrIHRoYXQgY29kZSB0aHJvd3MgYW4gZXJyb3IuDQoNCg0KDQo3LldyaXRlIGEgdW5pdCB0ZXN0IGZvciB5b3VyIGZ1bmN0aW9uIHRvIGNoZWNrIHdoZXRoZXIgbm9uLW51bWVyaWMgaW5wdXRzIChjaGFyYWN0ZXIgYW5kIGxvZ2ljYWwpIGZvciB0aGUgeWVhciBhcmd1bWVudCByZXR1cm4gYW4gZXJyb3IuDQoNCjQuNiBQZXJmb3JtaW5nIHRlc3QgYW5kIHJldmlzaW5nIGNvZGUNCg0KYGBge3J9DQpsaWJyYXJ5KHRlc3R0aGF0KQ0KDQp0ZXN0X3RoYXQoIk5vbi1udW1lcmljIGlucHV0IHJldHVybnMgYW4gZXJyb3IiLCB7ICMgZmFpbHVyZSBhcyBpdCBkb2Vzbid0IHRocm93IGFuIGVycm9yIC0gYW5kIHdlIGV4cGVjdCBvbmUNCiAgZXhwZWN0X2Vycm9yKGdldF9tZXRlb3JpdGVfY291bnQobWV0ZW9yaXRlcywgInllYXIiKSkNCiAgZXhwZWN0X2Vycm9yKGdldF9tZXRlb3JpdGVfY291bnQobWV0ZW9yaXRlcywgVFJVRSkpDQp9KQ0KdGVzdF90aGF0KCJNZXRlb3JpdGUgY291bnQgZnVuY3Rpb24gaW5jbHVkZXMiLCB7DQogIGV4cGVjdF9lcXVhbChnZXRfbWV0ZW9yaXRlX2NvdW50KG1ldGVvcml0ZXMsIDIwMjApLCBGQUxTRSkNCiAgZXhwZWN0X2VxdWFsKGdldF9tZXRlb3JpdGVfY291bnQobWV0ZW9yaXRlcywgMjAwNSksIFRSVUUpDQp9KQ0KYGBgDQpJbXByb3ZpbmcgdGhlIGZ1bmN0aW9uIGJhc2VkIG9uIHRoZSByZXN1bHQgZnJvbSB0aGUgdW5pdCB0ZXN0LiBUZXN0aW5nIHRoZSBmdW5jdGlvbiB0byBtYWtlIHN1cmUgaXQgbm93IGdpdmVzIGFuIGVycm9yIHdoZW4gd2UgaW5wdXQgYSBsb2dpY2FsIG9yIGNoYXJhY3RlciB2YWx1ZSBhcyB0aGUgeWVhci4NCmBgYHtyfQ0KcmVmYWN0b3JfZ2V0X21ldGVvcml0ZV9jb3VudCA8LSBmdW5jdGlvbihkYXRhZnJhbWUsIHllYXIpew0KICBpZiAoIWlzLm51bWVyaWMoeWVhcikpew0KICAgIHN0b3AoIk5vbi1udW1lcmljIGlucHV0LiIpDQogIH0NCiAgY291bnQgPSAwDQogIGlmKHllYXIgJWluJSBkYXRhZnJhbWUkeWVhcil7DQogICAgZm9yKGkgaW4gZGF0YWZyYW1lJHllYXIpew0KICAgICAgaWYoIWlzLm5hKGkpKXsNCiAgICAgICAgaWYoaSA9PSB5ZWFyKXsNCiAgICAgICAgICBjb3VudCA9IGNvdW50ICsgMQ0KICAgICAgICB9DQogICAgICB9DQogICAgfQ0KICAgIHByaW50KHBhc3RlMCgiSW4gIiwgeWVhciwgIiAsIHRoZXJlIHdlcmUgIiwgY291bnQsICIgbWV0ZW9yaXRlcy4iKSkgDQogICAgcmV0dXJuKFRSVUUpDQogIH0NCiAgZWxzZXsNCiAgICBwcmludCgiQXMgZmFyIGFzIHdlIGtub3csIHRoZXJlIHdlcmUgbm8gbWV0ZW9yaXRlcyB0aGF0IHllYXIiKQ0KICAgIHJldHVybihGQUxTRSkNCiAgfQ0KfQ0KdGVzdF90aGF0KCJOb24tbnVtZXJpYyBpbnB1dCByZXR1cm5zIGFuIGVycm9yIiwgew0KICBleHBlY3RfZXJyb3IocmVmYWN0b3JfZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCAieWVhciIpKQ0KICBleHBlY3RfZXJyb3IocmVmYWN0b3JfZ2V0X21ldGVvcml0ZV9jb3VudChtZXRlb3JpdGVzLCBUUlVFKSkNCn0pDQpgYGANCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7cn0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KbWV0ZW9yaXRlcyA8LSByZWFkX2NzdigiZGF0YS9tZXRlb3JpdGVzX2xhbmRpbmdzX2NsZWFuLmNzdiIpDQpgYGANCg0KDQpgYGB7cn0NCm1ldGVvcml0ZXMgJT4lIA0KICBnZ3Bsb3QoKSsNCiAgYWVzKHggPSBmYWxsKSsNCiAgZ2VvbV9iYXIoKQ0KYGBgDQpgYGB7cn0NCm1ldGVvcml0ZXMgJT4lIA0KICBnZ3Bsb3QoKSsNCiAgYWVzKHggPSB5ZWFyLCBmaWxsID0gZmFsbCkrDQogIGdlb21faGlzdG9ncmFtKGJpbndpZHRoID0gMTAwLCBwb3NpdGlvbj1wb3NpdGlvbl9kb2RnZSgpKQ0KYGBgDQoNCg==</div>
 
 
 
@@ -454,7 +296,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("data_analysis.Rmd");
+  window.initializeSourceEmbed("data_visualisation.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>

@@ -2,14 +2,13 @@
 title: "R Notebook"
 output: html_notebook
 ---
-
 ```{r}
 library(RPostgres)
 library(Rcpp)
 source("~/meteors_credentials.R") # source credentials file
 ```
 
-
+3.2 Writing function/program to process data from a database
 ```{r}
 # create connection object
 db_connection = dbConnect(
@@ -27,13 +26,12 @@ rm(username, password) # remove these from global environment
 meteorite_db <- dbGetQuery(conn = db_connection, statement = "SELECT * FROM meteorite_class") # create table from the connection object
 ```
 
-
+3.2 Data structures including tables and databases
 ```{r}
 meteorites <- read_csv("data/meteorites_landings_clean.csv") # load in cleaned meteorites file
 
 meteorites <- left_join(meteorites, meteorite_db, by = "id") # join tables
 ```
-
 
 ```{r}
 dbDisconnect(conn = db_connection) # close connection
