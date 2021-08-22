@@ -12,31 +12,36 @@ library(tidyverse)
 meteorites <- read_csv("data/meteorites_landings_clean.csv")
 ```
 
+
+3.5 Writing function/program to perform statistical analysis
+
 2. Find the names and years found for the 10 largest meteorites in the data.
 ```{r}
 meteorites %>% 
-  arrange(desc(mass_g)) %>% 
-  select(name, year) %>% 
-  drop_na() %>% 
-  head(10)
+  arrange(desc(mass_g)) %>% # order by largest
+  select(name, year) %>% # selects desired columns
+  drop_na() %>% # drop row if name or year is missing
+  head(10) # display top 10
 ```
+
 3. Find the average mass of meteorites that were recorded falling, vs. those which were just found.
+
 ```{r}
 meteorites %>% 
-  group_by(fall) %>% 
-  summarise(avg = mean(mass_g))
+  group_by(fall) %>% # group by fall status
+  summarise(avg = mean(mass_g)) # calculate mean of mass
 ```
 
 4. Looking for the number of meteorites in each year, for every year since 2000.
+
 ```{r}
 meteorites %>% 
-  filter(year >= 2000) %>% 
-  group_by(year) %>% 
-  summarise(count = n())
+  filter(year >= 2000) %>% # filter years 2000 and up
+  group_by(year) %>% # group by year
+  summarise(count = n()) # count occurrences
 ```
 5.Write a function called get_meteorite_count() that takes in two arguments: a dataframe and a year, and returns the phrase “In (input_year), there were (number of meteorites that year) meteorites.” IF there are 1 or more meteorites that year. If there are no meteorites in the year, return the phrase “As far as we know, there were no meteorites that year”.
 
-3.5 Writing function/program to perform statistical analysis
 
 ```{r}
 get_meteorite_count <- function(dataframe, year){ # functions takes two arguments
