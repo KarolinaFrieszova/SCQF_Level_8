@@ -25,14 +25,38 @@ ggplot(penguins)+
   labs(x = "Species",
        y = "Bill Lenghth (mm)")
 ```
+Each box represents 50% of data per specific species. 
+The horizontal line represents the middle value of the stored data set.
+The whiskers on either side of the box mark the positions beyond which data values are normally deemed to be outliers.
+In our case there is only one outlier in Gentoo species.
+In each case, we can see fair distribution around the median.
 
 ```{r}
-#ggplot(penguins) +
-#  geom_pointrange(aes(x = species, y = bill_length_mm),
-#                  stat = "summary",
-#                  fun.min = function(z) {quantile(z,0.25)},
-#                  fun.max = function(z) {quantile(z,0.75)},
-#                  fun = median)
+penguins %>%
+  drop_na(bill_length_mm) %>% 
+  group_by(species) %>%
+  summarise(IQR = IQR(bill_length_mm))
+
+penguins %>%
+  drop_na(bill_length_mm) %>% 
+  group_by(species) %>%
+  summarise(
+    Q1 = quantile(bill_length_mm, 0.25),
+    Q2 = quantile(bill_length_mm, 0.5),
+    Q3 = quantile(bill_length_mm, 0.75),
+    IQR = Q3 - Q1
+  )
+```
+
+
+
+```{r}
+ggplot(penguins) +
+  geom_pointrange(aes(x = species, y = bill_length_mm),
+                  stat = "summary",
+                  fun.min = function(z) {quantile(z,0.25)},
+                  fun.max = function(z) {quantile(z,0.75)},
+                  fun = median)
 ```
 
 ```{r}
@@ -49,24 +73,47 @@ ggplot(data = penguins, aes(y = bill_length_mm, x = species)) + # Move y and x h
        fill = "Species")
 ```
 
+```{r}
+penguins %>%
+  drop_na(bill_length_mm) %>% 
+  filter(species == "Chinstrap") %>% 
+  ggplot(aes(x = bill_length_mm)) +
+  geom_histogram(col = "white")
+```
+It’s difficult to say clearly, but Chinstrap's bill length distribution shows some evidence of being bimodal.
+
+
+
 SUMMARY STATISTICS
 
-Mean & Median
+--- Mean & Median --- 
 ```{r}
 penguins %>% 
   drop_na(bill_length_mm) %>% 
   group_by(species) %>% 
   summarise(mean = mean(bill_length_mm), 
-            median = median(bill_length_mm))
+            median = median(bill_length_mm),
+            difference = mean(bill_length_mm) - median(bill_length_mm))
 ```
-Spread (Standard Deviation)
+Average length of the bill between penguin species (Adelie, Chinstrap, Gentoo) is 38.79 mm, 48.83 mm, 47.50 mm respectively.
+
+Median length of the bill between penguin species (Adelie, Chinstrap, Gentoo) is 38.80 mm, 49.55 mm, 47.30 mm respectively.
+
+Median and mean values of the bill length hardly differ for Adelie. 
+
+The most significant difference, from the three species, in the average and median length of the bill is seen in Chinstraps (the numbers vary 0.72 mm).
+
+--- Spread (Standard Deviation) ---
 ```{r}
 penguins %>%
   drop_na(bill_length_mm) %>% 
   group_by(species) %>%
   summarise(standard_deviation = sd(bill_length_mm))
 ```
-Skewness
+The standard deviation shows that the observations are most spread out for Chinstrap penguin.
+
+
+--- Skewness ---
 ```{r}
 library(e1071)
 
@@ -75,4 +122,5 @@ penguins %>%
   group_by(species) %>%
   summarise(skewness = skewness(bill_length_mm, type = 1))
 ```
-
+The distribution is fairly symmetrical for Adelie and Chinstrap.
+And the distribution is moderately right-skewed for Gentoo.
