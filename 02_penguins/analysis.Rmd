@@ -1,0 +1,78 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+# install.packages("palmerpenguins")
+library(palmerpenguins)
+library(tidyverse)
+
+penguins <- palmerpenguins::penguins 
+```
+
+```{r}
+# three species of penguin
+penguins %>% 
+  distinct(species)
+```
+EXPLORATORY ANALYSIS
+
+```{r}
+ggplot(penguins)+
+  aes(x = species, y = bill_length_mm)+
+  geom_boxplot()+
+  labs(x = "Species",
+       y = "Bill Lenghth (mm)")
+```
+
+```{r}
+#ggplot(penguins) +
+#  geom_pointrange(aes(x = species, y = bill_length_mm),
+#                  stat = "summary",
+#                  fun.min = function(z) {quantile(z,0.25)},
+#                  fun.max = function(z) {quantile(z,0.75)},
+#                  fun = median)
+```
+
+```{r}
+ggplot(data = penguins, aes(y = bill_length_mm, x = species)) + # Move y and x here so than they can be used in stat_*
+    geom_dotplot(aes(fill = species),   # Use fill = Species here not in ggplot()
+                 binaxis = "y",         # which axis to bin along
+                 binwidth = 0.6,        # Minimal difference considered diffeerent
+                 stackdir = "center"    # Centered
+                 ) +
+    stat_summary(fun = median, fun.min = median, fun.max = median,
+                 geom = "crossbar", width = 0.5)+
+  labs(x = "",
+       y = "Bill Lenghth (mm)",
+       fill = "Species")
+```
+
+SUMMARY STATISTICS
+
+Mean & Median
+```{r}
+penguins %>% 
+  drop_na(bill_length_mm) %>% 
+  group_by(species) %>% 
+  summarise(mean = mean(bill_length_mm), 
+            median = median(bill_length_mm))
+```
+Spread (Standard Deviation)
+```{r}
+penguins %>%
+  drop_na(bill_length_mm) %>% 
+  group_by(species) %>%
+  summarise(standard_deviation = sd(bill_length_mm))
+```
+Skewness
+```{r}
+library(e1071)
+
+penguins %>%
+  drop_na(bill_length_mm) %>% 
+  group_by(species) %>%
+  summarise(skewness = skewness(bill_length_mm, type = 1))
+```
+
