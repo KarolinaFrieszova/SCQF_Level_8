@@ -14,11 +14,43 @@ meteorites %>%
   ggplot()+
   aes(x = fall)+
   geom_bar()
+
+meteorites %>% 
+  drop_na() %>% 
+  summarise(min = min(year),max = max(year))
 ```
+3.6 Writing function/program to create visualisations
 ```{r}
 meteorites %>% 
   ggplot()+
   aes(x = year, fill = fall)+
-  geom_histogram(binwidth = 100, position=position_dodge())
+  geom_histogram(binwidth = 100, position=position_dodge())+
+  labs(x = "Year",
+       y = "Count",
+       fill = "Status",
+       title = "Meteorites fallen to Earth vs found up to 2013")
 ```
+
+The histogram displays meteorites that have fallen to Earth versus 
+those that have been found between the years 1600 up to 2013.
+
+Data are grouped into buckets of equal width, one bucket represents 100 years.
+Each bucket is plotted as a bar whose height corresponds to how many meteorites 
+were detected in that 100 years depending on their status (fell vs found).
+
+The graph is skewed left. On the left side, before the year 1800, 
+there weren't any meteorites found despite that some were recorded as fallen.
+Most of the meteorites were recorded found after the year 2000.
+
+In regards to the numbers of meteorites that were fallen, 
+the largest number was recorded to be between 1900 to 2000. 
+
+
+```{r}
+#ggsave("3_6_plot.png")
+```
+
+
+
+
 
