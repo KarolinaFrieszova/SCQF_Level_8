@@ -34,6 +34,34 @@ In each case, we can see fair distribution around the median.
 ```{r}
 penguins %>%
   drop_na(bill_length_mm) %>% 
+  filter(species == "Chinstrap") %>% 
+  ggplot(aes(x = bill_length_mm)) +
+  geom_histogram(col = "white")
+```
+It’s difficult to say clearly, but Chinstrap's bill length distribution shows some evidence of being bimodal.
+
+```{r}
+penguins %>%
+  drop_na(bill_length_mm) %>% 
+  filter(species == "Gentoo") %>% 
+  ggplot(aes(x = bill_length_mm)) +
+  geom_histogram(col = "white")
+```
+Again, it isn't easy to say clearly, but Gentoo's bill length distribution looks to be slightly right skewed.
+
+
+```{r}
+penguins %>%
+  drop_na(bill_length_mm) %>% 
+  filter(species == "Adelie") %>% 
+  ggplot(aes(x = bill_length_mm)) +
+  geom_histogram(col = "white")
+```
+In the case of the Adelie species bill length, we can see normal distribution but there isn't a clear peak in the middle. 
+
+```{r}
+penguins %>%
+  drop_na(bill_length_mm) %>% 
   group_by(species) %>%
   summarise(IQR = IQR(bill_length_mm))
 
@@ -47,8 +75,6 @@ penguins %>%
     IQR = Q3 - Q1
   )
 ```
-
-
 
 ```{r}
 ggplot(penguins) +
@@ -73,16 +99,6 @@ ggplot(data = penguins, aes(y = bill_length_mm, x = species)) + # Move y and x h
        fill = "Species")
 ```
 
-```{r}
-penguins %>%
-  drop_na(bill_length_mm) %>% 
-  filter(species == "Chinstrap") %>% 
-  ggplot(aes(x = bill_length_mm)) +
-  geom_histogram(col = "white")
-```
-It’s difficult to say clearly, but Chinstrap's bill length distribution shows some evidence of being bimodal.
-
-
 
 SUMMARY STATISTICS
 
@@ -99,9 +115,10 @@ Average length of the bill between penguin species (Adelie, Chinstrap, Gentoo) i
 
 Median length of the bill between penguin species (Adelie, Chinstrap, Gentoo) is 38.80 mm, 49.55 mm, 47.30 mm respectively.
 
-Median and mean values of the bill length hardly differ for Adelie. 
+Median and mean values of the bill length hardly differ for Adelie penguin species. 
 
-The most significant difference, from the three species, in the average and median length of the bill is seen in Chinstraps (the numbers vary 0.72 mm).
+The most significant difference, from the three species, in the average and median length of the bill is seen in Chinstraps (the numbers vary by 0.72 mm).
+
 
 --- Spread (Standard Deviation) ---
 ```{r}
