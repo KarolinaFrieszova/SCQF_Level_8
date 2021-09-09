@@ -3,6 +3,8 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+TASK: We are interested in how bill length differ between the three species of penguin (Adelie, Chinstrap & Gentoo) in this dataset.
+
 ```{r}
 # install.packages("palmerpenguins")
 library(palmerpenguins)
@@ -103,6 +105,7 @@ ggplot(data = penguins, aes(y = bill_length_mm, x = species)) + # Move y and x h
 SUMMARY STATISTICS
 
 --- Mean & Median --- 
+
 ```{r}
 penguins %>% 
   drop_na(bill_length_mm) %>% 
@@ -121,6 +124,7 @@ The most significant difference, from the three species, in the average and medi
 
 
 --- Spread (Standard Deviation) ---
+
 ```{r}
 penguins %>%
   drop_na(bill_length_mm) %>% 
@@ -131,6 +135,7 @@ The standard deviation shows that the observations are most spread out for Chins
 
 
 --- Skewness ---
+
 ```{r}
 library(e1071)
 
@@ -141,3 +146,83 @@ penguins %>%
 ```
 The distribution is fairly symmetrical for Adelie and Chinstrap.
 And the distribution is moderately right-skewed for Gentoo.
+
+HYPOTHESIS TEST & PROBABILITY
+
+TASK: Perform a suitable hypothesis test to check whether the mean bill length of Gentoo is significantly longer than the mean bill length of Adelie.
+
+critical value = 0.05
+
+H0: μ bill(Gentoo) - μ bill(Adelie) = 0
+Ha: μ bill(Gentoo) - μ bill(Adelie) > 0
+
+
+```{r}
+library(infer)
+
+penguins <- penguins %>% 
+  drop_na(bill_length_mm) %>% 
+  filter(!species == 'Chinstrap')
+
+penguins %>% 
+  group_by(species) %>% 
+  summarise(n = n())
+```
+Size of both samples is similar. 
+
+```{r}
+penguins %>% 
+  ggplot(aes(x = species, y = bill_length_mm))+
+  geom_boxplot()
+```
+The sample of the bill length of penguin species Adelie and Gentoo don't have any overlap. 
+The box-plot indicate that the bill length of Gentoo tend to be longer on average. 
+But let's check whether this difference in distributions could be down to sampling variation or
+whether it is a significant difference by performing our hypothesis test. 
+
+Next we use permutation to generate the null distribution.
+
+Under H0 (H0: μ bill(Gentoo) - μ bill(Adelie) = 0) the pengiun species would have no bearing on the bill length, i.e. the species and the bill length are independent. There wouldn't be difference between groups. 
+
+Using permutation we randomly shuffle the species labels and we lose any relationship there was between species and bill length.
+
+```{r}
+null_distribution <- penguins %>% 
+  specify(bill_length_mm ~ species) %>% 
+  hypothesize(null = "independence") %>% 
+  generate(reps = 1000, type = "permute") %>% 
+  calculate(stat = "diff in means", order = c("Gentoo", "Adelie"))
+
+head(null_distribution)
+```
+
+```{r}
+observed_stat <- penguins %>% 
+  specify(bill_length_mm ~ species) %>% 
+  calculate(stat = "diff in means", order = c("Gentoo", "Adelie"))
+
+observed_stat
+```
+
+
+From Ha (Ha: μ bill(Gentoo) - μ bill(Adelie) > 0)  we see that this is a one-tailed test because alternative is that the difference is greater than zero.
+```{r}
+null_distribution %>% 
+  visualise()+
+  shade_p_value(obs_stat = observed_stat, direction = "greater")
+```
+From graph we can see that there would be extremely low probability of getting a more extreme value than ours under null hypothesis H0.
+
+We can also see that our observed statistic lies outside of the distribution on right hand side. 
+
+We can see that there was no relationship in the first place (i.e. they are in fact independent) and randomly shuffling them had no implication.
+
+```{r}
+p_value <- null_distribution %>% 
+  get_p_value(obs_stat = observed_stat, direction = "greater")
+
+p_value
+```
+
+By calculating p-value, we see that it is less than critical value of 0.05 and so we reject the null hypothesis in favour of the alternative hypothesis.
+We can conclude that we have found enough evidence in our data to suggest that the mean bill length of Gentoo is significantly longer than the mean bill length of Adelie.
