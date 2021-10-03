@@ -1,0 +1,252 @@
+---
+title: "NYC Citi Bike trips"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    css: 
+  pdf_document: default
+---
+```{r echo = FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE)
+```
+
+
+# Documentation
+
+### 1. Introduing Bike Sharing
+
+Cycling is an activity which comes with many benefits: health though exercise, car traffic congestion is reduced, and reduction from carbon pollution. In recent years, bike sharing grew in popularity in large cities. 
+
+Since 2013 bicycle sharing scheme 'CitiBike' is available in New York City. There are currently about 20,000 shared bikes which user can hire from about 1,300 stations across Manhattan, Brooklyn, Queens and Jersey City.
+
+### 2. Our Dataset
+
+Our dataset is a sample from NYC Citi Bike usage of 10 bikes throughout 2018. The data includes event data on each trip, including the trip's start and end times and locations. The customer's gender, birth year and bike usage type.
+
+There are two trip types, a 'Customer' and a 'Subscriber'. Where the customer type represents either a day or 3-day pass, and a subscriber represents an annual subscription.
+
+### 3. Data sourse
+
+Data were obtained from [CitiBike](https://www.citibikenyc.com/system-data) website which has a vast amount of open data available regarding bike hire usage as well as sales of memberships and short-term passes.
+
+In R Studio, this data table can be downloaded from the package `tsibbledata`.
+  
+### 4. Business requirements
+
+The purpose of this project was to look closer at the annual data of sample of bike hires from Citi Bike in New York and to help the business find any actionable insights on how to increase their bike sharing operation.
+
+In report we consider the pattern of bike hires over time. How these bike hire patterns differ between bike rider demographics of trip type?  And, we look at the geographical spread of the start points of bike hires.
+
+### 5. Business processes and data flow
+
+Create a diagram that shows how the Citi Bike dataset is created (which variables are added when) and demonstrates an understanding of the business process and flow of the data.
+
+For example: 
+
+![This diagram was created using draw.io at https://app.diagrams.net](dataflow_example.png)
+
+### 6. Data visualisation as a tool for decision-making
+
+This report can help Citi Bike to effectively plan annual bike repairs and target their advertisement specifically for different types of bike hires. It also gives clear visualisation of starting points of the ten sample bikes. This gives insights into which stations are more popular as pick-up locations and it cloud be in the future enhanced by comparison of which locations are more popular with bike drop-offs.
+
+### 7. Data types
+
+The original data table contains 12 columns and 4268 rows. Each row represents one bike hire. 
+Each column contain even data, these events are stored as different data types like (e.g. integer, character, datetime).
+The events include these details and are stored in these data types:
+
+Column Name    Data Type  Description
+-------------- ---------- ----------------- 
+bike_id        Integer    A unique identifier for the bike.
+start_time     Datetime   The time and date when the trip was started.
+stop_time      Datetime  	The time and date when the trip was ended.
+start_station  Integer   	A unique identifier for the starting bike station.
+start_lat      Decimal  	The latitude of the starting bike station.
+start_long     Decimal  	The longitude of the starting bike station.
+end_station    Integer    A unique identifier for the destination bike station.
+end_lat        Decimal  	The latitude of the destination bike station.
+end_long       Decimal  	The longitude of the destination bike station.
+type           Character  The type of trip. A "Customer" has purchased either a 24-hour or 3-day pass, and a "Subscriber" has purchased an annual subscription.
+birth_year	   Integer    The bike rider's year of birth.
+gender         Character  The gender of the bike rider.
+
+### 8. Data quality and data bias
+
+Citi Bike's system data is provided according to the [NYCBS Data Use Policy](https://ride.citibikenyc.com/data-sharing-policy).
+They publish [downloadable files of Citi Bike trip data](https://s3.amazonaws.com/tripdata/index.html).
+Data include information mentioned above.
+
+To avoid bias this data has been processed to remove trips that are taken by staff as they service and inspect the system, trips that are taken to/from any of their test stations, and any trips that were below 60 seconds in length as these are potentially false starts or users trying to re-dock a bike to ensure it's secure.
+
+The whole population of bikes in 2018 was approximately 11,000 whereas our sample contain trips of 10 bikes. Our sample could be small and there is a possibility of producing inaccurate insights. This needs to be considered in decision making process.
+
+# Data cleaning
+
+### 1. Preparing data for visualisation
+<br>
+
+#### Packages Used
+
+To start, I loaded the required packages for my project. I downloaded the data table using the package called `tsibbledata`. To perform data cleaning and analysis, I used the packages `tidyverse` and `tsibble`. The packages `lubridate` and `leaflet` were used for the exploration of data with methods like time-series or spatial.
+
+#### Time series analysis
+
+I created two new data tables from the original to perform time and spatial analysis and visualisations. 
+
+For the time series data table, I selected two columns. These columns include data on the start time and date of the bike trips and the type of hire.
+I utilised the trip initiation information to create additional two columns storing time-related data. One column stores months of the bike hire. The second shows the weekday of initiating the trip.
+Extracting additional information from data helped me to reveal meaningful insights for the business.
+
+The table used for geospatial visialisation contains three columns with information of latitude and longitude for starting location of the bike trips. From all three columns were removed any rows with missing values and the location parameters were converted from factor class type into the numeric type.
+
+```{r}
+# libraries
+library(tidyverse)
+library(tsibbledata)
+library(lubridate)
+library(tsibble)
+library(leaflet)
+```
+
+```{r cars}
+# USED FOR TIME SERIES
+# create dataset for time series analysis
+nyc_bikes_time_series <- nyc_bikes %>% 
+  select(start_time, type) %>% 
+  mutate(start_month = month(start_time, label = T),
+         start_week_day = wday(start_time, week_start = 1, label = T, abbr = F))
+
+#USED FOR GEOSPATIAL
+# turn columns to numeric and remove NA values
+nyc_bikes_spatial <- nyc_bikes %>%
+  select(start_lat, start_long, type) %>% 
+  mutate_at(vars(start_lat, start_long), as.numeric) %>%
+  filter(!is.na(start_long)) %>% 
+  filter(!is.na(start_lat)) %>% 
+  filter(!is.na(type))
+```
+
+# Data visualisation
+
+### 1. Process and design (2.1, 2.7, 2.8, 2.9)
+
+Briefly describe your data visualisation process.
+
+The project required planning, data cleaning, data wrangling, visualisation, description, report building, and presentation of findings.
+First, I investigated variables of interest with simple single-variable distribution plots. Then I plotted variables of interest to the business against each other to see if any patterns were present in the data. After selecting key visualisations I ensured these were clearly portraying the message I wanted to convey, were aesthetically pleasing, as well as accurate and not misleading. All visualisations were made in RStudio using the `ggplot` package.
+
+### 2. Visualisations
+<br>
+#### 2.1. MONTHLY BIKE HIRES BY TRIP TYPE
+
+```{r}
+nyc_bikes_time_series %>% 
+  index_by(start_month) %>% 
+  group_by(type) %>% 
+  ggplot()+
+  aes(x = start_month, group = type, fill = type)+
+  geom_histogram(stat="count", colour = "black")+
+  theme_bw()+
+  labs(title = "Monthly bike hires by trip type\n",
+       x = "\nMonth",
+       y = "Frequency\n",
+       fill = "Trip type",
+       caption = "NYC Citi Bike hires in 2018")+
+  scale_fill_manual(values = c("Customer" = "#d95f02",
+                               "Subscriber" = "#1b9e77"))
+```
+
+#### Graph Description
+
+- The histogram illustrates the pattern in how bike hire in New York City was distributed over the year 2018.
+- The x-axis represents the months of 2018 and the y-axis displays the frequency of the bike trips by type. The green color represents counts of trips made with an annual membership card or and the orange color shows the frequency of short-term passes.
+
+#### Business Insights
+
+- There was a spike in bike hire usage in July and August and contrary to that February was the month with the lowest amount of trips.
+- The graph illustrates that bikes were used less frequently from November to March, and more frequently from April to October. 
+- These bikes were little used for short-term hires in January, February, and December. 
+- The strongest month for short-term hire usage was July and for the membership hire usage, it was August.
+- It is clear that our ten sample bikes were mainly hired by annual subscribers. 
+
+#### Main points for the business
+- The highlighted relationship of frequency of bike hires throughout the year, grouped by months and trip type can be used by the business to create better-targeted advertisements for different seasons and customer types.
+- The graph shows that bikes were used less frequently over the winter months, which can be due to the weather conditions.
+Therefore, I would suggest Citi Bike to schedule any annual repair for February as bikes were utilised least frequently.
+<br>
+#### 2.2. WEEKLY BIKE HIRES BY TRIP TYPE
+
+```{r}
+nyc_bikes_time_series %>% 
+  index_by(start_week_day) %>% 
+  group_by(type) %>% 
+  ggplot()+
+  aes(x = start_week_day, group = type, color = type)+
+  geom_line(stat="count", lwd = 1)+
+  theme_bw()+
+  labs(title = "Weekly bike hires by trip type",
+       subtitle = "Annual trend\n",
+       x = "\nDays of the week",
+       y = "Frequency\n",
+       color = "Trip type")+
+  scale_colour_manual(values = c("Customer" = "#d95f02",
+                               "Subscriber" = "#1b9e77"))
+```
+
+#### Graph Description
+
+- The line graph illustrates the pattern in how the bike hire usage was distributed over the weekdays throughout the year 2018. 
+- The x-axis represents the days of the week and the y-axis represents the frequency of bike start trips for our two trip types of memberships and short-term passes.
+
+#### Business Insights
+
+- The graph displays that there was the highest usage of bicycles on Tuesdays.
+- The bicycles were mainly used by subscribers from Monday to Friday.
+- Whereas bicycles usage by short-term hires increased over the weekend in comparison to the working week. 
+- The line graph also confirms that the ten bikes were more frequently used by the users with the annual pass.
+
+#### Main points for the business
+
+- The highlighted relationship of frequency of bike hires throughout the year, grouped by weekdays and trip type can be used by the business to create better-targeted advertisements for different days of the week per customer type.
+- There is a significant pattern difference between bike riders by the demographics of trip type. I would suggest exploring options of increasing sales of the short-term passes.
+<br>
+#### 2.3. THE GEOGRAPHICAL SPREAD OF THE START POINTS OF BIKE HIRES
+
+```{r}
+# create leaflet map
+leaflet(nyc_bikes_spatial) %>%
+  addTiles() %>%
+  addCircleMarkers(lng = ~start_long,
+                   lat = ~start_lat,
+                   clusterOptions = markerClusterOptions())
+```
+
+
+#### Map Description
+
+- The ten sample bicycles were used for trips from Jersey City. 
+- By zooming in on the map, we can see the stations and how many times the bikes were picked from each station. 
+
+#### Business Insights
+
+- By zooming out, we see that from all the stations in Jersey City these ten bikes were hired for trips overall 4268 times over the year of 2018.
+- Our bicycle start points were relatively concentrated bearing in mind the spread of New Your City.
+
+#### Main points for the business
+- The bicycle start points were relatively concentrated bearing in mind the spread of New Your City. This graph gives us an overall idea of the spread of bike stations. This form of bike visualisation on the map could be beneficial to the end-user when planning their trip and mainly when planning a one-way trip.
+
+
+# Conclusion
+
+To conclude, the graphs indicate that bike hire is a fairly popular annual transportation choice.
+
+The first graph shows that bikes were used less frequently over the winter months, which can be due to the weather conditions.
+Therefore, I would suggest Citi Bike to schedule any annual repair for February as bikes were utilised least frequently. 
+
+There is a significant pattern difference between bike riders by the demographics of trip type. I would suggest exploring options of increasing sales of the short-term passes.
+
+Our bicycle start points were relatively concentrated bearing in mind the spread of New Your City. This graph gives us an overall idea of the spread of bike stations. This form of bike visualisation on the map could be beneficial to the end-user when planning their trip and mainly when planning a one-way trip.
+
+
+

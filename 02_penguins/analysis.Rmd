@@ -33,6 +33,7 @@ The whiskers on either side of the box mark the positions beyond which data valu
 In our case there is only one outlier in Gentoo species.
 In each case, we can see fair distribution around the median.
 
+
 ```{r}
 penguins %>%
   drop_na(bill_length_mm) %>% 
@@ -51,7 +52,6 @@ penguins %>%
 ```
 Again, it isn't easy to say clearly, but Gentoo's bill length distribution looks to be slightly right skewed.
 
-
 ```{r}
 penguins %>%
   drop_na(bill_length_mm) %>% 
@@ -60,6 +60,21 @@ penguins %>%
   geom_histogram(col = "white")
 ```
 In the case of the Adelie species bill length, we can see normal distribution but there isn't a clear peak in the middle. 
+
+Distribution shown using a bot plot for all three species:
+```{r}
+ggplot(data = penguins, aes(y = bill_length_mm, x = species)) + # Move y and x here so than they can be used in stat_*
+    geom_dotplot(aes(fill = species),   # Use fill = Species here not in ggplot()
+                 binaxis = "y",         # which axis to bin along
+                 binwidth = 0.6,        # Minimal difference considered diffeerent
+                 stackdir = "center"    # Centered
+                 ) +
+    stat_summary(fun = median, fun.min = median, fun.max = median,
+                 geom = "crossbar", width = 0.5)+
+  labs(x = "",
+       y = "Bill Lenghth (mm)",
+       fill = "Species")
+```
 
 ```{r}
 penguins %>%
@@ -86,21 +101,6 @@ ggplot(penguins) +
                   fun.max = function(z) {quantile(z,0.75)},
                   fun = median)
 ```
-
-```{r}
-ggplot(data = penguins, aes(y = bill_length_mm, x = species)) + # Move y and x here so than they can be used in stat_*
-    geom_dotplot(aes(fill = species),   # Use fill = Species here not in ggplot()
-                 binaxis = "y",         # which axis to bin along
-                 binwidth = 0.6,        # Minimal difference considered diffeerent
-                 stackdir = "center"    # Centered
-                 ) +
-    stat_summary(fun = median, fun.min = median, fun.max = median,
-                 geom = "crossbar", width = 0.5)+
-  labs(x = "",
-       y = "Bill Lenghth (mm)",
-       fill = "Species")
-```
-
 
 SUMMARY STATISTICS
 
@@ -186,6 +186,7 @@ Under H0 (H0: μ bill(Gentoo) - μ bill(Adelie) = 0) the pengiun species would h
 
 Using permutation we randomly shuffle the species labels and we lose any relationship there was between species and bill length.
 
+
 ```{r}
 null_distribution <- penguins %>% 
   specify(bill_length_mm ~ species) %>% 
@@ -206,6 +207,7 @@ observed_stat
 
 
 From Ha (Ha: μ bill(Gentoo) - μ bill(Adelie) > 0)  we see that this is a one-tailed test because alternative is that the difference is greater than zero.
+
 ```{r}
 null_distribution %>% 
   visualise()+
@@ -226,3 +228,4 @@ p_value
 
 By calculating p-value, we see that it is less than critical value of 0.05 and so we reject the null hypothesis in favour of the alternative hypothesis.
 We can conclude that we have found enough evidence in our data to suggest that the mean bill length of Gentoo is significantly longer than the mean bill length of Adelie.
+
