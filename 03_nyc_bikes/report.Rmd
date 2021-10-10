@@ -1,11 +1,11 @@
 ---
 title: "NYC Citi Bike trips"
+author: Karolina Frieszova
+date: 10/10/2021
 output:
   html_document:
     toc: true
     toc_float: true
-    css: 
-  pdf_document: default
 ---
 ```{r echo = FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE)
@@ -36,15 +36,19 @@ In R Studio, this data table can be downloaded from the package `tsibbledata`.
 
 The purpose of this project was to look closer at the annual data of sample of bike hires from Citi Bike in New York and to help the business find any actionable insights on how to increase their bike sharing operation.
 
-In report we consider the pattern of bike hires over time. How these bike hire patterns differ between bike rider demographics of trip type?  And, we look at the geographical spread of the start points of bike hires.
+In report we consider the pattern of bike hires over time. How these bike hire patterns differ between bike rider demographics of trip type and, we look at the geographical spread of the start points of bike hires.
 
 ### 5. Business processes and data flow
 
-Create a diagram that shows how the Citi Bike dataset is created (which variables are added when) and demonstrates an understanding of the business process and flow of the data.
+The diagram below shows how the Citi Bike dataset is created, which variables are added when, and displays the flow of the data collected.
+After visiting the business website or downloading their application, the customer creates, most likely, a profile. During this stage, their gender, and year of birth are stored. Then the customer can make their first purchase of the two available trip type options (short trip or annual membership). 
+The trip is initiated when the customer selects the bicycle. At this moment,  the bike id and information about the location and time are stored. Similarly, data on location and time are recorded when the customer is returning the bicycle. 
+Understandably, the business collects additional data about the customer like name, payment details, date of birth, etc. 
+The data available to download on the Citi Bike website are depersonalized, eliminating the connection between the data and the subject/customer. 
 
-For example: 
 
-![This diagram was created using draw.io at https://app.diagrams.net](dataflow_example.png)
+![The data flow diagram](dataflow_image.png)
+
 
 ### 6. Data visualisation as a tool for decision-making
 
@@ -53,7 +57,7 @@ This report can help Citi Bike to effectively plan annual bike repairs and targe
 ### 7. Data types
 
 The original data table contains 12 columns and 4268 rows. Each row represents one bike hire. 
-Each column contain even data, these events are stored as different data types like (e.g. integer, character, datetime).
+Each column contain event data, these events are stored as different data types like (e.g. integer, character, datetime).
 The events include these details and are stored in these data types:
 
 Column Name    Data Type  Description
@@ -79,7 +83,7 @@ Data include information mentioned above.
 
 To avoid bias this data has been processed to remove trips that are taken by staff as they service and inspect the system, trips that are taken to/from any of their test stations, and any trips that were below 60 seconds in length as these are potentially false starts or users trying to re-dock a bike to ensure it's secure.
 
-The whole population of bikes in 2018 was approximately 11,000 whereas our sample contain trips of 10 bikes. Our sample could be small and there is a possibility of producing inaccurate insights. This needs to be considered in decision making process.
+The whole population of bikes in 2018 was approximately 11,000 whereas our sample contain trips of 10 bikes. Our sample could be small and there is a possibility of producing inaccurate insights. This needs to be considered by the business in their decision making process.
 
 # Data cleaning
 
@@ -98,7 +102,7 @@ For the time series data table, I selected two columns. These columns include da
 I utilised the trip initiation information to create additional two columns storing time-related data. One column stores months of the bike hire. The second shows the weekday of initiating the trip.
 Extracting additional information from data helped me to reveal meaningful insights for the business.
 
-The table used for geospatial visialisation contains three columns with information of latitude and longitude for starting location of the bike trips. From all three columns were removed any rows with missing values and the location parameters were converted from factor class type into the numeric type.
+The table used for geospatial visialisation contains three columns with information on latitude and longitude of starting location of the bike trips. All three columns had removed any rows with missing values and the location parameters are converted from factor class type into the numeric type.
 
 ```{r}
 # libraries
@@ -129,16 +133,17 @@ nyc_bikes_spatial <- nyc_bikes %>%
 
 # Data visualisation
 
-### 1. Process and design (2.1, 2.7, 2.8, 2.9)
-
-Briefly describe your data visualisation process.
+### 1. Process and design
 
 The project required planning, data cleaning, data wrangling, visualisation, description, report building, and presentation of findings.
+
 First, I investigated variables of interest with simple single-variable distribution plots. Then I plotted variables of interest to the business against each other to see if any patterns were present in the data. After selecting key visualisations I ensured these were clearly portraying the message I wanted to convey, were aesthetically pleasing, as well as accurate and not misleading. All visualisations were made in RStudio using the `ggplot` package.
 
 ### 2. Visualisations
 <br>
+
 #### 2.1. MONTHLY BIKE HIRES BY TRIP TYPE
+
 
 ```{r}
 nyc_bikes_time_series %>% 
@@ -174,8 +179,11 @@ nyc_bikes_time_series %>%
 - The highlighted relationship of frequency of bike hires throughout the year, grouped by months and trip type can be used by the business to create better-targeted advertisements for different seasons and customer types.
 - The graph shows that bikes were used less frequently over the winter months, which can be due to the weather conditions.
 Therefore, I would suggest Citi Bike to schedule any annual repair for February as bikes were utilised least frequently.
+
 <br>
+
 #### 2.2. WEEKLY BIKE HIRES BY TRIP TYPE
+
 
 ```{r}
 nyc_bikes_time_series %>% 
@@ -210,8 +218,11 @@ nyc_bikes_time_series %>%
 
 - The highlighted relationship of frequency of bike hires throughout the year, grouped by weekdays and trip type can be used by the business to create better-targeted advertisements for different days of the week per customer type.
 - There is a significant pattern difference between bike riders by the demographics of trip type. I would suggest exploring options of increasing sales of the short-term passes.
+
 <br>
+
 #### 2.3. THE GEOGRAPHICAL SPREAD OF THE START POINTS OF BIKE HIRES
+
 
 ```{r}
 # create leaflet map
