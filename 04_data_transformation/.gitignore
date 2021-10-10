@@ -1,2 +1,10 @@
-
+raw_data/australia_customers.csv
+raw_data/france_customers.csv
+raw_data/germany_customers.csv
+raw_data/new_zealand_customers.csv
 raw_data/quality.csv
+raw_data/spain_customers.csv
+raw_data/toy_transactions.csv
+raw_data/toys.csv
+raw_data/uk_customers.csv
+raw_data/usa_customers.csv
