@@ -94,13 +94,15 @@ The whole population of bikes in 2018 was approximately 11,000 whereas our sampl
 
 To start, I loaded the required packages for my project. I downloaded the data table using the package called `tsibbledata`. To perform data cleaning and analysis, I used the packages `tidyverse` and `tsibble`. The packages `lubridate` and `leaflet` were used for the exploration of data with methods like time-series or spatial.
 
-#### Time series analysis
+#### Time series and demographic analysis
 
 I created two new data tables from the original to perform time and spatial analysis and visualisations. 
 
 For the time series data table, I selected two columns. These columns include data on the start time and date of the bike trips and the type of hire.
 I utilised the trip initiation information to create additional two columns storing time-related data. One column stores months of the bike hire. The second shows the weekday of initiating the trip.
 Extracting additional information from data helped me to reveal meaningful insights for the business.
+
+#### Geospatial visialisation
 
 The table used for geospatial visialisation contains three columns with information on latitude and longitude of starting location of the bike trips. All three columns had removed any rows with missing values and the location parameters are converted from factor class type into the numeric type.
 
