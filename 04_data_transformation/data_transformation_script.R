@@ -49,11 +49,14 @@ customers <- fs::dir_ls(data_dir, regexp = "\\customers.csv$")
 customers <- customers %>% 
   purrr::map_dfr(read_csv) 
 
-# --- 5 ---??????????????
-customers %>% 
+# --- 5 ---
+# Impute missing values in numeric columns with the median value of customers with the same gender and country
+customers <- customers %>% 
   group_by(customer_country, customer_gender) %>% 
-  mutate(across(customer_age = coalesce(customer_age, median(customer_age, na.rm = TRUE))))
-
+  mutate_if(is.numeric,
+            function(x) ifelse(is.na(x),
+                               median(x, na.rm = TRUE),
+                               x))
 
 # --- 7 ---
 # join your four cleaned datasets, keep all observations
@@ -74,4 +77,4 @@ toys_joined <- toys_joined %>%
 
 # --- 10 ---
 # Write new joined dataset to a csv file
-write_csv(toys_joined, "toys_joined.csv")
+write_csv(toys_joined, "clean_data/toys_joined.csv")
