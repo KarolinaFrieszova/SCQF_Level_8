@@ -1,6 +1,8 @@
 ---
 title: "R Notebook"
-output: html_notebook
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
 
@@ -55,28 +57,21 @@ The main difference/benefit of my code is reproducability.
 It is important to have clean and easily readable code.
 
 3. Create a plot which shows how the energy production for the sectors renewables, gas and pumped hydro compare over time.
-
 ```{r}
 # ORIGINAL CODE
 renewable <- energy_scotland %>%
   filter(sector == "Renewables")
-
 gas <- energy_scotland %>%
   filter(sector == "Gas")
-
 hydro <- energy_scotland %>%
   filter(sector == "Pumped hydro")
-
 years <- unique(energy_scotland$year)
-
-
 ggplot() +
   geom_line(aes(x = year, y = energy_prod,  color = sector), data = renewable) +
   geom_line(aes(x = year, y = energy_prod, color = sector), data = gas) +
   geom_line(aes(x = year, y = energy_prod, color = sector), data = hydro) +
   scale_x_continuous(breaks = years) +
   labs(title = "Energy production in Scotland over time split by sector", x ="Year", y = "Energy production")
-
 # REVIEWED & DEBUGGED CODE
 years <- unique(energy_scotland$year)
 
@@ -91,7 +86,6 @@ energy_scotland %>%
        x = "\nYear",
        y = "Energy production\n",
        color = "Sector type")
-  
 ```
 Instead of selecting and assigning three sector groups into individual variables. I would suggest to filter only required sectors and then use 'group by' function from 'dplyr' package (which groups by the sector - renewables, gas and pumped hydro).
 
@@ -147,3 +141,28 @@ The code selects 'name' column but the column is called 'Name'. I would suggest 
 The fourth line of code is missing a pipe ( %>% ) and function str_to_lower needs to be inside a mutate function as we want to make changes to the column in the datatable. 
 The last line there is a bracket missing at the end of the line.
 We need to place regular expressions inside []. The original code was looking for exact string match.
+
+6. Create a function to work on the all_salaries dataframe (or a similar dataframe that has a column salary and job_area). The function should take in the dataframe (dataframe_input) and a job area (job_area_input) and a salary value (salary_input). The function should only return the employees in the dataframe that have a savings above this value salary_input and who work in job area job_area_input.
+
+```{r}
+# ORIGINAL CODE
+subsetting_salaries <- function(dataframe_input,job_area_input,salary_input){ 
+  data <- dataframe_input %>% select(job_area) %>% filter(job_area == job_area_input)
+  data1 <- data[data$savings > salary_input, ]
+}
+
+subsetting_salaries(CodeClanData::all_salaries, Human Resources, 20000)
+
+# REVIEWED & DEBUGGED CODE
+subsetting_salaries <- function(dataframe_input, job_area_input, salary_input){
+  results <- dataframe_input %>% 
+    filter(job_area == job_area_input) %>% 
+    filter(savings > salary_input)
+  return(results)
+}
+subsetting_salaries(all_salaries, 'Legal', 30000)
+subsetting_salaries(all_salaries, 'Human Resources', 20000)
+```
+The original code had some mistakes in it like selecting only one column (job_area) when we are interested in seeing whole table;
+missing quotations around Human Resources. 
+I simplified the function by using tidyverse pipe functionality and filter function.
