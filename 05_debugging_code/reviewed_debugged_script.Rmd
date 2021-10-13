@@ -1,0 +1,149 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+library(tidyverse)
+# contains data on the energy production for different sectors in Scotland over time
+energy_scotland <- read_csv("data/energy_scotland.csv")
+# contains information on employees in a company
+all_salaries <- read_csv("data/all_salaries.csv")
+```
+
+1. return the row in the data which has the maximum energy production, making sure the code would work if new data was added to the dataset.
+```{r}
+# ORIGINAL CODE
+max(energy_scotland$energy_prod)
+# this returns value 25165.9 
+
+energy_scotland %>%
+  filter(energy_prod == 25165.9)
+
+# REVIEWED & DEBUGGED CODE
+energy_scotland %>% 
+  filter(energy_prod == max(energy_prod,  na.rm = TRUE))
+```
+
+The code above is reusable. It finds which observation has the maximum energy production in the dataset.
+It won't be looking into the rows with missing value for the energy production as the maximum entry for energy production is what we are interested in seeing.
+
+2. create a new column called ‘rating’ to the energy table which will take the following values * insert table here with rating values. The bins should be inclusive of the upper value e.g. is the energy production is 2000 exactly then will be ‘high’, if it’s 10000 exactly then will be ‘medium’.
+
+```{r}
+# ORIGINAL CODE
+rating <- if_else(energy_scotland$energy_prod > 20000, "very high", if_else(energy_scotland$energy_prod > 10000 & energy_scotland$energy_prod <= 20000, "high", if_else(energy_scotland$energy_prod > 5000 & energy_scotland$energy_prod <= 10000, "medium", if_else(energy_scotland$energy_prod > 2000 & energy_scotland$energy_prod <= 5000, "low", "very low"))))
+
+energy_scotland_rating <- bind_cols(energy_scotland, rating = rating)
+
+# REVIEWED & DEBUGGED CODE
+energy_scotland <- energy_scotland %>% 
+  mutate(rating = case_when(
+    energy_prod > 20000 ~ "very high",
+    energy_prod > 10000 ~ "high",
+    energy_prod > 5000  ~ "medium",
+    energy_prod > 2000  ~ "low",
+    energy_prod <= 2000 ~ "Very low",
+    TRUE ~ as.character(energy_prod)
+  ))
+```
+
+I have created a new column called 'rating' which stores the description of energy production.
+Code is written in one single code chunk.
+The main difference/benefit of my code is reproducability. 
+It is important to have clean and easily readable code.
+
+3. Create a plot which shows how the energy production for the sectors renewables, gas and pumped hydro compare over time.
+
+```{r}
+# ORIGINAL CODE
+renewable <- energy_scotland %>%
+  filter(sector == "Renewables")
+
+gas <- energy_scotland %>%
+  filter(sector == "Gas")
+
+hydro <- energy_scotland %>%
+  filter(sector == "Pumped hydro")
+
+years <- unique(energy_scotland$year)
+
+
+ggplot() +
+  geom_line(aes(x = year, y = energy_prod,  color = sector), data = renewable) +
+  geom_line(aes(x = year, y = energy_prod, color = sector), data = gas) +
+  geom_line(aes(x = year, y = energy_prod, color = sector), data = hydro) +
+  scale_x_continuous(breaks = years) +
+  labs(title = "Energy production in Scotland over time split by sector", x ="Year", y = "Energy production")
+
+# REVIEWED & DEBUGGED CODE
+years <- unique(energy_scotland$year)
+
+energy_scotland %>% 
+  filter(sector %in% c("Renewables", "Gas", "Pumped hydro")) %>% 
+  group_by(sector) %>% 
+  ggplot()+
+  aes(x = year, y = energy_prod, color = sector)+
+  geom_line()+
+ scale_x_continuous(breaks = c(years)) +
+  labs(title = "Energy production in Scotland over time split by sector",
+       x = "\nYear",
+       y = "Energy production\n",
+       color = "Sector type")
+  
+```
+Instead of selecting and assigning three sector groups into individual variables. I would suggest to filter only required sectors and then use 'group by' function from 'dplyr' package (which groups by the sector - renewables, gas and pumped hydro).
+
+4. Calculate the average energy production for each sector across the time period in the data.
+
+```{r}
+# ORIGINAL CODE
+energy_scotland %>%
+  filter(sector == c("Coal", "Gas", "Oil")) %>%
+  group_by(sector) %>%
+  summarise(avg_energy_prod = mean(energy_prod))
+
+# REVIEWED & DEBUGGED CODE
+energy_scotland %>% 
+  group_by(sector) %>% 
+  summarise(avg_energy_prod = mean(energy_prod))
+```
+The original code doesn't completely answer the question. 
+The question is asking to calculate average energy production for each sector.
+The original code printed only average energy production for three sectors and there are six sectors in total.
+From the original code, I removed the line with the filter function. This line excluded three other sectors in the data.
+
+5. 
+```{r}
+student <- tibble(
+  Name = c("Brian", "David", "Karen"),
+  age = c(25, 56, 40),
+  location = c("Scotland", "England", "scotland"),
+  `email address` = c("briang@yahoo.co.uk", "dsmith@gmail.co.uk", "karen")
+)
+
+student
+```
+Clean up this tibble by only returning the name, location and email address information, putting the location information into lowercase and also creating a new column called valid_email to have values TRUE or FALSE whether the email address is valid. Here our definition is valid is that it contains an @ symbol followed by a combination of lowercase characters or a . symbol.
+
+```{r}
+# ORIGINAL CODE
+student %>%
+  select(name, location, email_address) %>%
+  janitor::clean_names() %>%
+  str_to_lower(location) 
+  mutate(valid_email = str_detect(email_address, "@a-z."))
+         
+# REVIEWED & DEBUGGED CODE
+library(janitor)
+student %>% 
+  clean_names() %>% 
+  select(name, location, email_address) %>% 
+  mutate(location = str_to_lower(location)) %>% 
+  mutate(valid_email = str_detect(email_address, "@[a-z]."))
+```
+The code selects 'name' column but the column is called 'Name'. I would suggest to always run function 'clean_names' first.
+The fourth line of code is missing a pipe ( %>% ) and function str_to_lower needs to be inside a mutate function as we want to make changes to the column in the datatable. 
+The last line there is a bracket missing at the end of the line.
+We need to place regular expressions inside []. The original code was looking for exact string match.
