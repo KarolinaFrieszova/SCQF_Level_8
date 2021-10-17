@@ -1,0 +1,57 @@
+---
+title: "Documentation"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+  pdf_document: default
+---
+
+### Overview
+
+This project provides a data exploration and visualisation of data on Penguins using R Studio.
+
+The first script analyses how bill length differ between the three species of penguin. 
+
+The second showcases a correlation matrix between bill length, bill depth, flipper length, and body mass across species.
+
+### Dataset
+
+The dataset used is the penguins dataset from the palmerpenguins package.
+Includes measurements for penguin species, island in Palmer Archipelago, size (flipper length, body mass, bill dimensions), and sex.
+
+The dataset consists of 7 columns and 344 rows.
+
+- species - a factor denoting penguin species (Adélie, Chinstrap and Gentoo)
+- island - a factor denoting island in Palmer Archipelago, Antarctica (Biscoe, Dream or Torgersen)
+- bill_length_mm - a number denoting bill length (millimeters)
+- bill_depth_mm - a number denoting bill depth (millimeters)
+- flipper_length_mm - an integer denoting flipper length (millimeters)
+- body_mass_g - an integer denoting body mass (grams)
+- sex - a factor denoting penguin sex (female, male)
+- year- an integer denoting the study year (2007, 2008, or 2009)
+
+Of the 7 columns, 3 are categorical (species, island, sex) and the rest are numeric.
+
+### Process Methodology
+
+The purpose of this project was to look closer at the size measurements for adult foraging penguins and to analyse these using exploratory analysis, statistics, hypothesis testing and correlation matrix. 
+
+### Packages Used
+
+The dataset was dowloaded from `palmerpenguins` package. The main package used for exploratory analysis and visualisation was `tidyverse`.
+The packages used for statistics, hypothesis testing and correlation matrix were `e107`, `infer`, `GGally` respectively.
+
+### Findings
+
+#### Hypothesis Testing
+
+I performed a suitable hypothesis test to check whether the mean bill length of Gentoo is significantly longer than the mean bill length of Adelie.
+I concluded that I have found enough evidence in my data to suggest that the mean bill length of Gentoo is significantly longer than the mean bill length of Adelie.
+
+#### Correlation Matrix
+Across penguin species, there is a strong positive correlation between body mass and flipper length. 
+There is a strong positive correlation between body mass and bill length. 
+And also a strong positive correlation between flipper length and bill length.
+Surprisingly, there is no correlation between body mass and bill depth or between bill length and bill depth.
+Based on this, we can assume that heavier/larger penguins have longer bills and flippers.
