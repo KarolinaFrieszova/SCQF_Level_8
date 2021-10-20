@@ -1,0 +1,95 @@
+---
+title: "Decision tree"
+output: html_notebook
+---
+TASK: Based on the mass and year, create a decision tree model of your meteorites data which predicts whether a meteorite was seen falling, or was discovered after its impact (fell/found).
+
+1. Read in packages
+```{r}
+# read in packages
+
+library(tidyverse) # manipulate data
+library(janitor) # clean names
+library(rpart) # create decision tree model
+library(rpart.plot) # plot decision tree
+library(modelr) # add predictions
+library(yardstick) # check model's performance
+```
+2. Prepare dataset
+```{r}
+meteorites <- read_csv("data/meteorite_landings.csv") %>% 
+  clean_names() %>% 
+  select(-c(id, geo_location, name)) %>% 
+  mutate(fall = as.factor(fall)) # convert any character column to a factor
+```
+3. Split the dataset into training and testing datasets
+```{r}
+set.seed(3) # setting seed so I can interpret the results
+
+n_data <- nrow(meteorites)
+
+# create a test sample index
+test_index <- sample(1:n_data, size = n_data * 0.2)
+
+# create test set
+meteors_test  <- slice(meteorites, test_index)
+
+# create training set
+meteors_train <- slice(meteorites, -test_index)
+
+# check balanced sets
+meteors_train %>%
+ janitor::tabyl(fall)
+
+# check balanced sets
+meteors_test %>%
+ janitor::tabyl(fall)
+
+
+# imbalanced dataset
+```
+4. Create a decision tree model and plot it
+```{r}
+meteors_model <- rpart(fall ~ ., 
+                     data = meteors_train, 
+                     method = 'class')
+
+rpart.plot(meteors_model)
+```
+5. Test and add predictions to the data
+```{r}
+meteors_test_pred <- meteors_test %>%
+  add_predictions(meteors_model, type = 'class')
+```
+
+6. Checking model performance
+```{r}
+conf_mat <- meteors_test_pred %>%
+              conf_mat(truth = fall, estimate = pred)
+
+conf_mat
+```
+58 - false positives
+133 - false negatives
+
+Accuracy
+```{r}
+accuracy <- meteors_test_pred %>%
+ accuracy(truth = fall, estimate = pred)
+
+accuracy 
+```
+The result represents the probability of our prediction being correct.
+(98% probability the model have correctly predicted whether meteorite was seen falling, or was discovered.)
+
+Sensitivity (True Positive Rate)
+```{r}
+meteors_test_pred %>%
+  sensitivity(truth = fall, estimate = pred)
+```
+Specificity (True Negative Rate)
+```{r}
+meteors_test_pred %>%
+  specificity(truth = fall, estimate = pred)
+```
+The model performs better when predicting found meteors in comparison to the ones seen falling. This could be due to the fact that our dataset is imbalanced and our training set learned mainly from the data on found meteorites.
